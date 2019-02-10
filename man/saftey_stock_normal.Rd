@@ -28,13 +28,13 @@ Calculating saftey stock based on the cycle service level.
 Calculating saftey stock  based on  the cycle service level in   an assumed normal distribution.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are basic knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 saftey_stock_normal(annualdemand=8000,annualstandarddeviation=600,
 leadtimeinweeks=4,csl=0.92,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

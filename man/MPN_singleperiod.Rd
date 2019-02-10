@@ -31,12 +31,12 @@ calculating expected profit for a newsvendor model based on critical ratio.
 calculating expected profit for a newsvendor model. based on assumed normal distribution demand.
 }
 \note{
-this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 MPN_singleperiod(mean= 32000,standerddeviation= 11000,p=24,c=10.9,g=7,b=0,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

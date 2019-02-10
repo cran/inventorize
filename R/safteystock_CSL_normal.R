@@ -1,5 +1,4 @@
 
-
 #' safteystock_CSL_normal
 #'
 #' calculating saftey stock based on cycle service level rate.
@@ -8,22 +7,18 @@
 #'
 #' @param  rate, cycle service level requested.
 #' @param quantity quantity ordered every cycle.
-#' @param demand numeric,  expected weekly demand of the SKU.
+#' @param demand numeric,  expected annual demand of the SKU.
 #'
-#' @param  standerddeviation numeric weekly standard deviation of the demand.
+#' @param  standerddeviation numeric annual standard deviation of the demand.
 #' @param leadtime numeric,leadtime of order in weeks.
 #' @param na.rm logical with a default of TRUE
 
 #' @import stats
 #' @return a dataframe that contains calculations of the expected profit from a newsvendor model based on normal distribution.
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
-#' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
-#'the package relies heavily on the studies that I had in the MIT micromasters program for supply chain.
-
+#' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
 #' @examples
-#' safteystock_CSL_normal(0.95,30000,28000,5000,8,na.rm=TRUE)
+#' safteystock_CSL_normal(rate=0.95,quantity=30000,demand=28000,standerddeviation=5000,8,na.rm=TRUE)
 
 
 

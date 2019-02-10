@@ -19,16 +19,13 @@ the rate of increase of total relevant cost compared to the EOQ.
 \description{
 the rate of increase of total relevant cost compared to the EOQ.
 }
-\details{
-.
-}
 \note{
-this is the first version of the inventorize package, all the fucntions are basic knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during analysis of stock.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 eoqsenstivity(quantity=5400,quantityoptimal=6000,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

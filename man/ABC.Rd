@@ -19,13 +19,12 @@ Identyfing ABC category based on the pareto rule.
 Identyfing ABC category based on the pareto rule.A category is up to 80%. B category is up 95% and C category is up to 100%.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
+this is the second version of the inventorize package, all the fucntions are  without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
-data<- data.frame(SKU= seq(1:1000),demand=runif(1000,1,1000))
-ABC(data)
+ABC(data.frame(SKU= seq(1:1000),demand=runif(1000,1,1000)))
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

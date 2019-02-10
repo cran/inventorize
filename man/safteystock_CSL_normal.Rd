@@ -12,9 +12,9 @@ safteystock_CSL_normal(rate, quantity, demand, standerddeviation, leadtime,
 
 \item{quantity}{quantity ordered every cycle.}
 
-\item{demand}{numeric,  expected weekly demand of the SKU.}
+\item{demand}{numeric,  expected annual demand of the SKU.}
 
-\item{standerddeviation}{numeric weekly standard deviation of the demand.}
+\item{standerddeviation}{numeric annual standard deviation of the demand.}
 
 \item{leadtime}{numeric,leadtime of order in weeks.}
 
@@ -29,14 +29,9 @@ calculating saftey stock based on cycle service level rate.
 \details{
 calculating saftey stock and expected unit short based on the cycle service identified assuming a normal distribution.
 }
-\note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
-any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
-the package relies heavily on the studies that I had in the MIT micromasters program for supply chain.
-}
 \examples{
-safteystock_CSL_normal(0.95,30000,28000,5000,8,na.rm=TRUE)
+safteystock_CSL_normal(rate=0.95,quantity=30000,demand=28000,standerddeviation=5000,8,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

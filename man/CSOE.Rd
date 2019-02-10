@@ -25,22 +25,24 @@ CSOE(quantity, demand, standerddeviation, leadtimeinweeks, cost, costSoe,
 \item{na.rm}{removes na values if TRUE, TRUE by default}
 }
 \value{
-a dataframe that contains calculations of K the  item fill rate metric.cycle service level and expected unit short.
+a dataframe that contains calculations of K and the minimum quantity to be put in stock .
 }
 \description{
-CSOE<- function(quantity,demand,standerddeviation,leadtimeinweeks,cost,costSoe,holdingrate,na.rm=TRUE)
+Cost per stockout event
 }
 \details{
-Calculating K value that corresponds to the desired item fill rate.
+Calculating K value that corresponds to the cost per stock out event, how much quantity should be put in stock as a minimum.the function solves for optimum K
+based on the stock out event. It should be noted that the condition(output) should be bigger than 1.
+other wise set K as per management.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
-CSOE(quantity=1000,demand=4000,standerddeviation=200,leadtimeinweeks=3,
-cost=500,costSoe=85,holdingrate=0.2,na.rm=TRUE)
+CSOE(quantity=1000,demand=40000,standerddeviation=200,leadtimeinweeks=3,
+cost=500,costSoe=30000,holdingrate=0.2,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

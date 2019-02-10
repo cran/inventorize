@@ -22,10 +22,10 @@
 #' @return a dataframe that contains calculations of the total logistics cost in detail.
 #'
 #' @import stats
-#' @export
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
+#' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
+#' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
+#' @export
 #' @examples
 #' total.logistics.cost(quantity=32,expected_annual_demand=1550,
 #' sd_annual_demand=110,expected_leadtimeindays=64,sd_leadtime=8,

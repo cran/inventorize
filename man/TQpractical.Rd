@@ -27,13 +27,9 @@ Identyfing Practical ordering quantity based on the economic order quantity.it i
 order quantity will be always withing 6 % of the economic order quantity in terms od total relevant cost.
 }
 \note{
-this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
+this is the second version of the inventorize package, all the fucntions are  without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
-the package heavily relies on the learnings from MIT micromasters in supply chain led by Prof. Chris Caplice.
 }
 \examples{
 TQpractical(annualdemand=1000,orderingcost=100,purchasecost=72,holdingrate=0.25,na.rm=TRUE)
-}
-\author{
-"haytham omar  email: <h.omar5942@gmail.com>"
 }

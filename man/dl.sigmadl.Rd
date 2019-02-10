@@ -16,23 +16,23 @@ dl.sigmadl(expected_demand, sd_demand, expected_leadtime, sd_leadtime)
 \item{sd_leadtime}{numeric,standard deviation of leadtime}
 }
 \value{
-a dataframe that contains calculations of the expected demand lead time and the expected standard deviation during leadtime.
+a dataframe that contains calculations of the expected demand lead time and the expected saftey stock during leadtime. It is noted that saftey stock here is
+more than normal due to leadtime variability.
 }
 \description{
-claculating demand lead time with leadtime variability.
+claculating demand lead time,saftey stock when there is a  leadtime variability.
 }
 \details{
 calculating leadtime with leadtime variablility as delivery time diffires to long distances and reliability of mode of transport.
 thus demand leadtime and standard deviation during lead time takes into consideration the lead time variability.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
+this is the second version of the inventorize package, all the fucntions are  without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
-the package relies heavily on the studies that I had in the MIT micromasters program for supply chain.
 }
 \examples{
 dl.sigmadl(expected_demand=100,sd_demand=22,expected_leadtime=12,sd_leadtime=3)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

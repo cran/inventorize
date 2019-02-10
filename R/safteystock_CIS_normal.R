@@ -18,10 +18,10 @@
 #' @return a dataframe that contains calculations of K the cost per item short metric noting that condition must me less than 1.
 #'
 #'@import stats
+#'@author "haytham omar  email: <haytham@rescaleanalytics.com>"
+#' @note this is the second version of the inventorize package, all the fucntions are  without
+#' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @export
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
-#' any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @examples
 #' safteystock_CIS_normal(quantity=3000,demand=50000,standerddeviation=4000,
 #' leadtimeinweeks=4,cost=90,Citemshort=15,holdingrate=0.15,na.rm=TRUE)

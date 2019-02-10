@@ -24,12 +24,12 @@ the critical ratio.
 Calculating critical ratio of a news vendor model under any distribution.this critical ratio maxmizes profit.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
+this is the second version of the inventorize package, all the fucntions are  without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 CriticalRatio(sellingprice=80,cost=60,salvage=45,penality=25,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

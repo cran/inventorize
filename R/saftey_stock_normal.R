@@ -15,27 +15,26 @@
 #' @return a dataframe that contains calculations of K the cost per item short metric noting that condition must me less than 1.
 #'
 #'@import stats
+#'
+#' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
+#' @note this is the second version of the inventorize package, all the fucntions are  without
+#' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @export
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the fucntions are basic knowlege for supply chain without
-#' any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @examples
 #' saftey_stock_normal(annualdemand=8000,annualstandarddeviation=600,
 #' leadtimeinweeks=4,csl=0.92,na.rm=TRUE)
 
+saftey_stock_normal <-
+  function(annualdemand,annualstandarddeviation,leadtimeinweeks,csl,na.rm=TRUE){
+
+    demandleadtime<- annualdemand *leadtimeinweeks/52
+    sigmadl<- annualstandarddeviation* sqrt(leadtimeinweeks/52)
+    safteyfactor<- qnorm(csl)
+    safteystock<-safteyfactor*sigmadl
+    quantityinstock<- demandleadtime+safteystock
+    allpar<- data.frame("demandleadtime"= demandleadtime,"sigmadl"=sigmadl,"safteyfactor"=safteyfactor,"cyclestock+safteystock"=quantityinstock)
+    return(allpar)
+  }
 
 
-
-
-
-saftey_stock_normal<- function(annualdemand,annualstandarddeviation,leadtimeinweeks,csl,na.rm=TRUE){
-
-  demandleadtime<- annualdemand *leadtimeinweeks/52
-  sigmadl<- annualstandarddeviation* sqrt(leadtimeinweeks/52)
-  safteyfactor<- qnorm(csl)
-  safteystock<-safteyfactor*sigmadl
-  quantityinstock<- demandleadtime+safteystock
-  allpar<- data.frame("demandleadtime"= demandleadtime,"sigmadl"=sigmadl,"safteyfactor"=safteyfactor,"quantityinstock"=quantityinstock)
-  return(allpar)
-}
 

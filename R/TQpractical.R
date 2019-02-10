@@ -15,13 +15,12 @@
 #'
 #' @return a dataframe that contains the economic order quantity and the practical order quantity, Tstar (optimum)and Tpractical
 #' which is always away from the optimum up to 6%.
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
+# @author "haytham omar  email: <haytham@rescaleanalytics.com>"
+#' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
-#' the package heavily relies on the learnings from MIT micromasters in supply chain led by Prof. Chris Caplice.
 #'
-#' @export
 #' @import stats
+#' @export
 #' @examples
 #' TQpractical(annualdemand=1000,orderingcost=100,purchasecost=72,holdingrate=0.25,na.rm=TRUE)
 

@@ -15,9 +15,9 @@
 #' @param  cost, numeric cost of the SKU
 #' @param  holdingrate ,numeric, holding rate per item/year
 #' @param na.rm A logical indicating whether missing values should be removed
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
-#' any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during analysis of stock.
+#' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
+#' @note this is the second version of the inventorize package, all the fucntions are  without
+#' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @return a dataframe that contains demand leadtime,sigmadl(standard deviation in leadtime),saftey factor k determined
 #' based on cost per itemshort,unit normal loss function,expected units to be short,cycle service level, fill rate,implied cost
 #' per stockout event, saftey stock and suggested reorder point.

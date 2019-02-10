@@ -38,14 +38,13 @@ item fill rate is the percentage of demand that is fullfilled directly from the 
 are implicitly calculated.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during analysis of stock.
-the package relies heavily on the leraning from MIT micromasters.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 inventorymetricsIFR(fillrate= 0.90, demand= 35000,standerddeviation=9000,
 quantity= 5000,leadtime=3 ,cost=50,holdingrate=0.15,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

@@ -37,13 +37,13 @@ after cost per item short is explicitly  calculated, item fill rate, cost per st
 are implicitly calculated.
 }
 \note{
-this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during analysis of stock.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 inventorymetricsCIS(CIS= 90, demand= 35000,standerddeviation=9000,
 quantity= 9000,leadtime=3 ,cost=90,holdingrate=0.15,na.rm =TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

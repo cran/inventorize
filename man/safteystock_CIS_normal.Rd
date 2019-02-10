@@ -34,13 +34,13 @@ Calculating K value that reduces cost per item short.
 Calculating K value that reduces cost per item short inventory metric based on an assumed normal distribution.
 }
 \note{
-this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
-any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
+this is the second version of the inventorize package, all the fucntions are  without
+any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
 safteystock_CIS_normal(quantity=3000,demand=50000,standerddeviation=4000,
 leadtimeinweeks=4,cost=90,Citemshort=15,holdingrate=0.15,na.rm=TRUE)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

@@ -9,6 +9,6 @@
 inventory analytics and cost calculations for SKUs.
 }
 \author{
-\strong{Maintainer}: Haytham Omar \email{h.omar5942@gmail.com}
+\strong{Maintainer}: Haytham Omar \email{haytham@rescaleanalytics.com}
 
 }

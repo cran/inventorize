@@ -39,7 +39,7 @@ calculating total logistics cost .
 calculating total logistics cost based on a normal distribution.
 }
 \note{
-this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
+this is the second version of the inventorize package, all the fucntions are  without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
@@ -48,5 +48,5 @@ sd_annual_demand=110,expected_leadtimeindays=64,sd_leadtime=8,
 costperunit=107,transportcost=22,holdingrate=0.15,ordering_cost=500,csl=0.95)
 }
 \author{
-"haytham omar  email: <h.omar5942@gmail.com>"
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

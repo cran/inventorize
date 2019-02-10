@@ -17,11 +17,10 @@
 #'
 #' @return a dataframe that contains calculations of the  expected profit from a newsvendor model based on poisson distribution.
 #'@import stats
-#' @export
-#' @author "haytham omar  email: <h.omar5942@gmail.com>"
-#' @note this is the first version of the inventorize package, all the functions are common knowlege for supply chain without
+#' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
+#' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
-#'the package relies heavily on the studies that I had in the MIT micromasters program for supply chain.
+#' @export
 #' @examples
 #' EPP_singleperiod(quantity=40149,lambda= 32000,p=24,c=10.9,g=7,b=0,na.rm=TRUE)
 
