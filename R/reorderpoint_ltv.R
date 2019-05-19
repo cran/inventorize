@@ -1,4 +1,4 @@
-#' reorderpoint_ltv
+#' reorderpoint_leadtime_variability
 #'
 #' Calculating saftey stock based on the cycle service level.
 #'
@@ -22,11 +22,11 @@
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @export
 #' @examples
-#' reorderpoint_ltv(dailydemand=50,dailystandarddeviation=5,
+#' reorderpoint_leadtime_variability(dailydemand=50,dailystandarddeviation=5,
 #' leadtimein_days=6,sd_leadtime_days=2,csl=0.90)
 
 
-reorderpoint_ltv <-
+reorderpoint_leadtime_variability <-
   function(dailydemand,dailystandarddeviation,leadtimein_days,sd_leadtime_days,csl,na.rm=TRUE){
 
     DL<- dailydemand*leadtimein_days

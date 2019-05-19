@@ -24,9 +24,9 @@ the elasticity ratio in unit sales, the -ve number represents the increase in sa
 maxmizing revenue based on chage in price and elasticity.
 }
 \details{
-This function is helpful to determine the elasticity of a product with effect to price change, the figure could be negative as the change is price is negative.
-it translates as for one currency unit change in price, this much is ecpected in units in increase of sales. condition must be that Price in period one was more than proce
-in period 2 and sales in period two was more than sales in period 1. a proposed price is given to period 3 which is future period to maxmize revenue.
+#' This function is helpful to determine the elasticity of a product with effect to price change, the figure could be negative as the change is price is negative.
+it translates as for each unit percentage  decrease in price , this much is ecpected precentage of  increase of sales. condition must be that Price in period one was more than proce
+in period 2 and sales in period two was more than sales in period 1.  a proposed optimum  price is given to period 3 which is future period to maxmize revenue.
 }
 \examples{
 revenue_max(salesP1=50,salesP2=100,priceP1=6,priceP2=4)

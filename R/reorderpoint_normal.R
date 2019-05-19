@@ -1,4 +1,4 @@
-#' reorderpoint_normal
+#' reorderpoint
 #'
 #' Calculating saftey stock based on the cycle service level.
 #'
@@ -20,10 +20,10 @@
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @export
 #' @examples
-#' reorderpoint_normal(dailydemand=50,dailystandarddeviation=5,leadtimein_days=6,csl=0.90)
+#' reorderpoint(dailydemand=50,dailystandarddeviation=5,leadtimein_days=6,csl=0.90)
 
 
-reorderpoint_normal <-
+reorderpoint<-
   function(dailydemand,dailystandarddeviation,leadtimein_days,csl,na.rm=TRUE){
 
     DL<- dailydemand*leadtimein_days

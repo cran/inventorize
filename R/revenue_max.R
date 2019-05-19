@@ -4,9 +4,9 @@
 #'
 #' maxmizing revenue based on chage in price and elasticity.
 #'
-#' This function is helpful to determine the elasticity of a product with effect to price change, the figure could be negative as the change is price is negative.
-#' it translates as for one currency unit change in price, this much is ecpected in units in increase of sales. condition must be that Price in period one was more than proce
-#' in period 2 and sales in period two was more than sales in period 1. a proposed price is given to period 3 which is future period to maxmize revenue.
+#'#' This function is helpful to determine the elasticity of a product with effect to price change, the figure could be negative as the change is price is negative.
+#' it translates as for each unit percentage  decrease in price , this much is ecpected precentage of  increase of sales. condition must be that Price in period one was more than proce
+#' in period 2 and sales in period two was more than sales in period 1.  a proposed optimum  price is given to period 3 which is future period to maxmize revenue.
 #'
 #' @param  salesP1, integer, unit sales in period 1.
 #' @param salesP2 integer unit sales in period 2.
@@ -32,25 +32,24 @@ revenue_max<- function(salesP1,salesP2,priceP1,priceP2,na.rm=TRUE){
   revenueP3<- function(discount,elasticity,salesP1,salesP2,priceP1,priceP2){
   revenueP1<- salesP1*priceP1
   revenueP2<- salesP2*priceP2
-  newprice<- discount*priceP2
+  newprice<- priceP2*(1+discount)
   change<- newprice-priceP2
-  salesincrease<- change*elasticity
-  salesP3<- salesincrease+salesP2
+  salesP3<- salesP2*(1+elasticity*discount)
   x<-salesP3*newprice
   return(x)
   }
 
-elasticity<- (salesP2-salesP1)/(priceP2-priceP1)
-opt<-optimize(revenueP3,c(0,2),tol = 0.0001,maximum = TRUE,elasticity=elasticity,salesP1=salesP1,salesP2=salesP2,priceP1=priceP1,priceP2=priceP2)
+ elasticity<- ((salesP2-salesP1)/salesP1)/((priceP2-priceP1)/priceP1)
+opt<-optimize(revenueP3,c(-2,2),tol = 0.0001,maximum = TRUE,elasticity=elasticity,salesP1=salesP1,salesP2=salesP2,priceP1=priceP1,priceP2=priceP2)
 revenueP1<- salesP1*priceP1
 revenueP2<- salesP2*priceP2
 proposed_discount<-opt$maximum
 projected_revenue<-opt$objective
-newprice<-proposed_discount*priceP2
+newprice<-priceP2*(1+proposed_discount)
 changeinprice<-newprice-priceP2
-increase_in_sales<-changeinprice*elasticity
+salesP3<- salesP2*(1+elasticity*proposed_discount)
 revenue_max<-data.frame(salesP1=salesP1,salesP2=salesP2,priceP1=priceP1,priceP2=priceP2,revenuep1=revenueP1,revenuep2=revenueP2,elasticity=elasticity,proposed_discount=proposed_discount,changeinprice=changeinprice,newprice=newprice,
-                        increase_in_sales=increase_in_sales,salesP3=increase_in_sales+salesP2,revenueP3=projected_revenue)
+                        change_in_sales=salesP3-salesP2,salesP3=salesP3,revenueP3=projected_revenue)
 return(revenue_max)
 }
 

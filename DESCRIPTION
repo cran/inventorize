@@ -1,6 +1,6 @@
 Package: inventorize
 Title: Inventory Analytics and Cost Calculations
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: person("Haytham", "Omar", email = "haytham@rescaleanalytics.com", role = c("aut", "cre"))
 Description: Facilitate  inventory analysis calculations,pricing and promotions calculations.
   the package includes calculations of inventory metrics, profit calculations and ABC analysis calculations.
@@ -20,8 +20,8 @@ LazyData: true
 Imports: dplyr, ggplot2, stats, magrittr, plyr,
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2019-02-10 06:51:20 UTC; haythamomar
+Packaged: 2019-05-19 18:54:11 UTC; haythamomar
 Author: Haytham Omar [aut, cre]
 Maintainer: Haytham Omar <haytham@rescaleanalytics.com>
 Repository: CRAN
-Date/Publication: 2019-02-10 07:13:19 UTC
+Date/Publication: 2019-05-19 19:10:03 UTC
