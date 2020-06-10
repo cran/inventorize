@@ -4,8 +4,14 @@
 \alias{profit_max_withfixedcost}
 \title{profit_max_withfixedcost}
 \usage{
-profit_max_withfixedcost(fixed_cost, variable_cost, salesP1, salesP2,
-  priceP1, priceP2)
+profit_max_withfixedcost(
+  fixed_cost,
+  variable_cost,
+  salesP1,
+  salesP2,
+  priceP1,
+  priceP2
+)
 }
 \arguments{
 \item{fixed_cost, }{numeric, fixed cost for ordering and handling the SKU.}

@@ -4,8 +4,16 @@
 \alias{inventorymetricsCIS}
 \title{inventorymetricsCIS}
 \usage{
-inventorymetricsCIS(CIS, demand, standerddeviation, quantity, leadtime,
-  cost, holdingrate, na.rm = TRUE)
+inventorymetricsCIS(
+  CIS,
+  demand,
+  standerddeviation,
+  quantity,
+  leadtime,
+  cost,
+  holdingrate,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{CIS}{numeric,cost per item short determined by management}

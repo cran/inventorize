@@ -4,8 +4,16 @@
 \alias{CSOE}
 \title{CSOE}
 \usage{
-CSOE(quantity, demand, standerddeviation, leadtimeinweeks, cost, costSoe,
-  holdingrate, na.rm = TRUE)
+CSOE(
+  quantity,
+  demand,
+  standerddeviation,
+  leadtimeinweeks,
+  cost,
+  costSoe,
+  holdingrate,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{quantity, }{numeric,quantity replinished every cycle.}

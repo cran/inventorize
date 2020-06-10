@@ -4,8 +4,14 @@
 \alias{reorderpoint_leadtime_variability}
 \title{reorderpoint_leadtime_variability}
 \usage{
-reorderpoint_leadtime_variability(dailydemand, dailystandarddeviation,
-  leadtimein_days, sd_leadtime_days, csl, na.rm = TRUE)
+reorderpoint_leadtime_variability(
+  dailydemand,
+  dailystandarddeviation,
+  leadtimein_days,
+  sd_leadtime_days,
+  csl,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{dailydemand}{numeric,daily Expected  demand of the SKU .}

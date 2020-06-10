@@ -4,8 +4,16 @@
 \alias{inventorymetricsCSL}
 \title{inventorymetricsCSL}
 \usage{
-inventorymetricsCSL(csl, demand, standerddeviation, quantity, leadtime,
-  cost, holdingrate, na.rm = TRUE)
+inventorymetricsCSL(
+  csl,
+  demand,
+  standerddeviation,
+  quantity,
+  leadtime,
+  cost,
+  holdingrate,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{csl}{numeric,required times of demand that is fullfilled from cycle stock}

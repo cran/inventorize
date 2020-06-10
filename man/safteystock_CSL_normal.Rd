@@ -4,8 +4,14 @@
 \alias{safteystock_CSL_normal}
 \title{safteystock_CSL_normal}
 \usage{
-safteystock_CSL_normal(rate, quantity, demand, standerddeviation, leadtime,
-  na.rm = TRUE)
+safteystock_CSL_normal(
+  rate,
+  quantity,
+  demand,
+  standerddeviation,
+  leadtime,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{rate, }{cycle service level requested.}

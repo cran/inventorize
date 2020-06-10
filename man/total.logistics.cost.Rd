@@ -4,9 +4,18 @@
 \alias{total.logistics.cost}
 \title{total.logistics.cost}
 \usage{
-total.logistics.cost(quantity, expected_annual_demand, sd_annual_demand,
-  expected_leadtimeindays, sd_leadtime, costperunit, transportcost,
-  holdingrate, ordering_cost, csl)
+total.logistics.cost(
+  quantity,
+  expected_annual_demand,
+  sd_annual_demand,
+  expected_leadtimeindays,
+  sd_leadtime,
+  costperunit,
+  transportcost,
+  holdingrate,
+  ordering_cost,
+  csl
+)
 }
 \arguments{
 \item{quantity}{quantity ordered every cycle.}

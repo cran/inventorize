@@ -4,8 +4,7 @@
 \alias{EPN_singleperiod}
 \title{EPN_singleperiod}
 \usage{
-EPN_singleperiod(quantity, mean, standerddeviation, p, c, g, b,
-  na.rm = TRUE)
+EPN_singleperiod(quantity, mean, standerddeviation, p, c, g, b, na.rm = TRUE)
 }
 \arguments{
 \item{quantity, }{numeric,quantity replinished every cycle.}

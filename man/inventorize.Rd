@@ -6,7 +6,7 @@
 \alias{inventorize-package}
 \title{inventorize: Inventory Analytics And Cost Calculations.}
 \description{
-inventory analytics and cost calculations for SKUs.
+inventory analytics,revenue management and cost calculations for SKUs.
 }
 \author{
 \strong{Maintainer}: Haytham Omar \email{haytham@rescaleanalytics.com}

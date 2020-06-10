@@ -4,8 +4,14 @@
 \alias{safteystock_IFR_normal}
 \title{safteystock_IFR_normal}
 \usage{
-safteystock_IFR_normal(rate, quantity, demand, standerddeviation, leadtime,
-  na.rm = TRUE)
+safteystock_IFR_normal(
+  rate,
+  quantity,
+  demand,
+  standerddeviation,
+  leadtime,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{rate}{numeric, item fill rate.}

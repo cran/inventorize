@@ -4,8 +4,16 @@
 \alias{inventorymetricsIFR}
 \title{inventorymetricsIFR}
 \usage{
-inventorymetricsIFR(fillrate, demand, standerddeviation, quantity,
-  leadtime, cost, holdingrate, na.rm = TRUE)
+inventorymetricsIFR(
+  fillrate,
+  demand,
+  standerddeviation,
+  quantity,
+  leadtime,
+  cost,
+  holdingrate,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{fillrate}{numeric,required percentage of demand that is fullfilled from cycle stock}

@@ -4,8 +4,13 @@
 \alias{TQpractical}
 \title{TQpractical}
 \usage{
-TQpractical(annualdemand, orderingcost, purchasecost, holdingrate,
-  na.rm = TRUE)
+TQpractical(
+  annualdemand,
+  orderingcost,
+  purchasecost,
+  holdingrate,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{annualdemand, }{numeric annual demand of the SKU.}

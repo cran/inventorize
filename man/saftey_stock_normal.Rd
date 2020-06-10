@@ -4,8 +4,13 @@
 \alias{saftey_stock_normal}
 \title{saftey_stock_normal}
 \usage{
-saftey_stock_normal(annualdemand, annualstandarddeviation, leadtimeinweeks,
-  csl, na.rm = TRUE)
+saftey_stock_normal(
+  annualdemand,
+  annualstandarddeviation,
+  leadtimeinweeks,
+  csl,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{annualdemand}{numeric,annual Expected  demand of the SKU .}

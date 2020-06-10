@@ -4,8 +4,16 @@
 \alias{safteystock_CIS_normal}
 \title{safteystock_CIS_normal}
 \usage{
-safteystock_CIS_normal(quantity, demand, standerddeviation,
-  leadtimeinweeks, cost, Citemshort, holdingrate, na.rm = TRUE)
+safteystock_CIS_normal(
+  quantity,
+  demand,
+  standerddeviation,
+  leadtimeinweeks,
+  cost,
+  Citemshort,
+  holdingrate,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{quantity, }{numeric,quantity replinished every cycle.}

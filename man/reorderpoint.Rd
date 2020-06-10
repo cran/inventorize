@@ -4,8 +4,13 @@
 \alias{reorderpoint}
 \title{reorderpoint}
 \usage{
-reorderpoint(dailydemand, dailystandarddeviation, leadtimein_days, csl,
-  na.rm = TRUE)
+reorderpoint(
+  dailydemand,
+  dailystandarddeviation,
+  leadtimein_days,
+  csl,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{dailydemand}{numeric,daily Expected  demand of the SKU .}
