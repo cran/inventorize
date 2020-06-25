@@ -1,5 +1,5 @@
-a6daff8869d9ea093004ee0cd7522524 *DESCRIPTION
-ef3556fcedea8a6e7ff0dbfa3ea5bc4a *NAMESPACE
+67a4782be82b172915b3476a5a99a1ea *DESCRIPTION
+957b9d6e62839184955d16a951b0b68c *NAMESPACE
 b471b00bb87c871dd87f0dd2f96c659b *R/ABC.R
 832b248e6560b1ead8c9f12eca581ea3 *R/CSOE.R
 13f4aba4e3b63a4dfe2f8bd873ceaf89 *R/CriticalRatio.R
@@ -8,7 +8,11 @@ b4d336e3e3c713a7cfe88d9dcb79c684 *R/EPN_singleperiod.R
 580a4d49c8560829874cf1a6f468ab82 *R/EUSnorm_singleperiod.R
 430a3c0d78d0b452061095de794759cb *R/MPN_singleperiod.R
 f842debd3cb990c6f31083b2fbc7ffdb *R/MPP_singleperiod.R
-6023c796a1ee65d70dfaaaaab29f51fb *R/Multi_Competing_optimization.R
+f05833dd4a056b287b6306f62f3d3f60 *R/Multi_Competing_optimization.R
+92aa1585b817e97a6728d37738945fa2 *R/Sim_min_Q_pois.R
+b922db183421f9522e617206b84ee0f3 *R/Sim_min_q_normal.R
+26a7a358efdc2704b88cd6f5e46caabc *R/Sim_minmax_normal.R
+f025f68a7253b4c751d3574f66af12ff *R/Sim_minmax_pois.R
 eb639df553f178f5d3b6744836d3fbe8 *R/TQpractical.R
 e319da36cfee806e0618eed7a960027d *R/TRC.R
 4c6d3f137145d45e9c00e7de7119d972 *R/dl.sigmadl.R
@@ -41,7 +45,7 @@ d1a90eb664de1a033ea9a5d88964dc7e *man/EPP_singleperiod.Rd
 11505fc782efb31c941b88672f041c18 *man/EUSnorm_singleperiod.Rd
 75b1a8c173d3a8617ec274b67251db5b *man/MPN_singleperiod.Rd
 8b88de70393a669e4c14a967b90bb807 *man/MPP_singleperiod.Rd
-c029a33c3dbe83073184a4c2dbf7ab6f *man/Multi_Competing_optimization.Rd
+0d8d68d2c66132209054ebd2a5bc9a9a *man/Multi_Competing_optimization.Rd
 129059284d9e77b8678def7f6fc30709 *man/TQpractical.Rd
 9a9662f1cc393a8deeedc7296f07d9f0 *man/TRC.Rd
 86a2140863c62fc447c7349cf88dabd4 *man/dl.sigmadl.Rd
@@ -64,5 +68,9 @@ eaf688ad8d7ea3fd29fc07648aa86fce *man/saftey_stock_normal.Rd
 4f37d2990593561a5a0453bf442ba9bb *man/safteystock_CIS_normal.Rd
 51754f4a0b357d918321afea54cb984a *man/safteystock_CSL_normal.Rd
 c49ae2836f130781eb8455ccbad79875 *man/safteystock_IFR_normal.Rd
+08074fafe970ef9959c3945369a41871 *man/sim_min_Q_normal.Rd
+7baa0c19d42f846610659d4c9644d07d *man/sim_min_Q_pois.Rd
+2c58978c437fd90cc87be4df22726b8c *man/sim_minmax_normal.Rd
+6c64b343ad1fdb61fee80926ae18e629 *man/sim_minmax_pois.Rd
 57195f0e77f66f4c04b0d07f8ce1d569 *man/single_product_optimization.Rd
 0948a4c68e6b92728200f382c50bf241 *man/total.logistics.cost.Rd

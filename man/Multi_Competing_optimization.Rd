@@ -30,9 +30,9 @@ thee price of each product accordingly. please note that the more the products y
 maximum of 8 products to your model.
 }
 \examples{
-Multi_Competing_optimization(X= data.frame(Chedar_Cheese= runif(300,10,15),
-Mozarella=runif(300,8,10),
-Parmesan=runif(300,9,12)),y= as.numeric(rep(c(1,2,3,NA,2,3),50)),n_variables = 3,
+Multi_Competing_optimization(X= data.frame(Chedar_Cheese= runif(100,10,15),
+Mozarella=runif(100,8,10),
+Parmesan=runif(100,9,12)),y= as.numeric(rep(c(1,2,3,NA,2),20)),n_variables = 3,
 initial_products_cost = c(8,6,7))
 }
 \author{

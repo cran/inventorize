@@ -1,10 +1,10 @@
 Package: inventorize
 Title: Inventory Analytics and Cost Calculations
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: person("Haytham", "Omar", email = "haytham@rescaleanalytics.com", role = c("aut", "cre"))
-Description: Facilitate  inventory analysis calculations such as  stock levels and re-order points,pricing and promotions calculations. 
-  the package includes revenue management techniques such as Multi-product optimization,logit model optimization.
-  the package includes calculations of inventory metrics, stock-out calculations and ABC analysis calculations.
+Description: Simulate inventory Policies, facilitate inventory analysis calculations such as  stock levels and re-order points,pricing and promotions calculations. 
+  The package includes calculations of inventory metrics, stock-out calculations and ABC analysis calculations.
+    The package includes revenue management techniques such as Multi-product optimization,logit model optimization.
   The functions are referenced from :
   1-Harris, Ford W. (1913). "How many parts to make at once". Factory, The Magazine of Management. <isbn10: 135–136, 152>.
   2- Nahmias, S. Production and Operations Analysis. McGraw-Hill International Edition. <isbn: 0-07- 2231265-3. Chapter 4>.
@@ -22,8 +22,8 @@ LazyData: true
 Imports: dplyr, ggplot2, stats, magrittr, plyr, tidyr, plotly,
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2020-06-10 20:49:22 UTC; haythamomar
+Packaged: 2020-06-25 14:54:09 UTC; haythamomar
 Author: Haytham Omar [aut, cre]
 Maintainer: Haytham Omar <haytham@rescaleanalytics.com>
 Repository: CRAN
-Date/Publication: 2020-06-10 21:40:06 UTC
+Date/Publication: 2020-06-25 15:10:07 UTC
