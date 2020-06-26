@@ -12,7 +12,8 @@ sim_min_Q_normal(
   service_level,
   Quantity,
   shortage_cost = FALSE,
-  inventory_cost = FALSE
+  inventory_cost = FALSE,
+  ordering_cost = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ sim_min_Q_normal(
 \item{shortage_cost}{shortage cost per unit of sales lost}
 
 \item{inventory_cost}{inventory cost per unit.}
+
+\item{ordering_cost}{ordering cost for every time an order is made.}
 }
 \value{
 a list of two date frames, the simulation and the metrics.
@@ -45,8 +48,8 @@ orders are lost if inventory level is less than requested demand, also ordering 
 }
 \examples{
 sim_min_Q_normal(demand = rpois(50,8),mean = 5,sd=1,
-service_level = 0.5,leadtime = 4,
-shortage_cost = 5, Quantity = 12,inventory_cost = 1)
+service_level = 0.9,leadtime = 4,
+shortage_cost = 5, Quantity = 12,inventory_cost = 1,ordering_cost = 50)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

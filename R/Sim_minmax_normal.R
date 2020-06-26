@@ -16,24 +16,31 @@
 #' @param shortage_cost  shortage cost per unit of sales lost
 #' @param Max  Max quantity for order up to level
 #' @param inventory_cost  inventory cost per unit.
+#' @param ordering_cost  ordering cost for every time an order is made.
+
 #' @import stats
 
 #' @return a list of two date frames, the simulation and the metrics.
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
 #' @examples
-#' sim_minmax_normal(demand = rpois(25,8),mean = 5,sd=1,service_level = 0.5,
-#' leadtime = 4,shortage_cost = 0,Max= 40,inventory_cost = 0)
+#'sim_minmax_normal(demand=rpois(80,6),mean=6,sd=0.2,leadtime=5,service_level=0.95,Max=25,
+#'shortage_cost= FALSE,inventory_cost=FALSE,ordering_cost=FALSE)
+
+
+
+
 
 
 sim_minmax_normal<- function(demand,mean,sd,leadtime,service_level,Max,
-                            shortage_cost= FALSE,inventory_cost=FALSE){
+                            shortage_cost= FALSE,inventory_cost=FALSE,
+                            ordering_cost=FALSE){
   
   mu = mean
   L = leadtime
 
-  min= round((mean *leadtime)+ ((sd*sqrt(leadtime))* qnorm(0.95)),digits = 0)
-  saftey_stock= ((sd*sqrt(leadtime))* qnorm(0.95))                        
+  min= round((mean *leadtime)+ ((sd*sqrt(leadtime))* qnorm(service_level)),digits = 0)
+  saftey_stock= ((sd*sqrt(leadtime))* qnorm(service_level))                        
   
   
   
@@ -73,6 +80,7 @@ sim_minmax_normal<- function(demand,mean,sd,leadtime,service_level,Max,
   metrics<- data.frame(shortage_cost= sum(data$lost_order,na.rm = TRUE)*shortage_cost,
                        inventory_cost= sum(data$inventory_level,na.rm = TRUE)*inventory_cost,
                        average_inventory_level= mean(data$inventory_level,na.rm = TRUE),
+                       ordering_cost=length(which(data$order >0))*ordering_cost,
                        total_lost_sales= sum(data$lost_order,na.rm = TRUE),
                        Item_fill_rate= 1-(sum(data$lost_order,na.rm = TRUE)/sum(demand[1:(length(demand)-1)])),
                        cycle_service_level= 1-(length(which(data$lost_order >0))/(length(demand)-1))

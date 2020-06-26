@@ -12,7 +12,8 @@ sim_minmax_normal(
   service_level,
   Max,
   shortage_cost = FALSE,
-  inventory_cost = FALSE
+  inventory_cost = FALSE,
+  ordering_cost = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ sim_minmax_normal(
 \item{shortage_cost}{shortage cost per unit of sales lost}
 
 \item{inventory_cost}{inventory cost per unit.}
+
+\item{ordering_cost}{ordering cost for every time an order is made.}
 }
 \value{
 a list of two date frames, the simulation and the metrics.
@@ -44,8 +47,8 @@ orders are lost if inventory level is less than requested demand, also ordering 
  day t+1, metrics like item fill rate and cycle service level are calculated. the min is calculated based on a normal distribution.
 }
 \examples{
-sim_minmax_normal(demand = rpois(25,8),mean = 5,sd=1,service_level = 0.5,
-leadtime = 4,shortage_cost = 0,Max= 40,inventory_cost = 0)
+sim_minmax_normal(demand=rpois(80,6),mean=6,sd=0.2,leadtime=5,service_level=0.95,Max=25,
+shortage_cost= FALSE,inventory_cost=FALSE,ordering_cost=FALSE)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

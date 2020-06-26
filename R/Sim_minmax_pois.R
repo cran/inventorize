@@ -15,6 +15,8 @@
 #' @param Max  Max quantity for order up to level
 #' @param service_level  cycle service level requested
 #' @param inventory_cost  inventory cost per unit.
+#' @param ordering_cost  ordering cost for every time an order is made.
+
 #' @import stats
 
 #' @return a list of two date frames, the simulation and the metrics.
@@ -22,12 +24,12 @@
 #' @export
 #' @examples
 #' sim_minmax_pois(demand = rpois(50,8),lambda = 4,leadtime = 4,shortage_cost = 20,
-#'Max = 32,service_level = 0.70,inventory_cost = 50)
-#'
+#'Max = 32,service_level = 0.70,inventory_cost = 50,ordering_cost=50)
 
 
 sim_minmax_pois<- function(demand,lambda,leadtime,service_level,Max,
-                          shortage_cost= FALSE,inventory_cost=FALSE){
+                          shortage_cost= FALSE,inventory_cost=FALSE,
+                          ordering_cost=FALSE){
   
   mu = lambda
   L = leadtime
@@ -72,6 +74,7 @@ sim_minmax_pois<- function(demand,lambda,leadtime,service_level,Max,
   
   metrics<- data.frame(shortage_cost= sum(data$lost_order,na.rm = TRUE)*shortage_cost,
                        inventory_cost= sum(data$inventory_level,na.rm = TRUE)*inventory_cost,
+                       ordering_cost=length(which(data$order >0))*ordering_cost,
                        average_inventory_level= mean(data$inventory_level,na.rm = TRUE),
                        total_lost_sales= sum(data$lost_order,na.rm = TRUE),
                        Item_fill_rate= 1-(sum(data$lost_order,na.rm = TRUE)/sum(demand[1:(length(demand)-1)])),

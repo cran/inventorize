@@ -11,7 +11,8 @@ sim_minmax_pois(
   service_level,
   Max,
   shortage_cost = FALSE,
-  inventory_cost = FALSE
+  inventory_cost = FALSE,
+  ordering_cost = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ sim_minmax_pois(
 \item{shortage_cost}{shortage cost per unit of sales lost}
 
 \item{inventory_cost}{inventory cost per unit.}
+
+\item{ordering_cost}{ordering cost for every time an order is made.}
 }
 \value{
 a list of two date frames, the simulation and the metrics.
@@ -42,8 +45,7 @@ orders are lost if inventory level is less than requested demand, also ordering 
 }
 \examples{
 sim_minmax_pois(demand = rpois(50,8),lambda = 4,leadtime = 4,shortage_cost = 20,
-Max = 32,service_level = 0.70,inventory_cost = 50)
-
+Max = 32,service_level = 0.70,inventory_cost = 50,ordering_cost=50)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

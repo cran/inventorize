@@ -11,7 +11,8 @@ sim_min_Q_pois(
   service_level,
   Quantity,
   shortage_cost = FALSE,
-  inventory_cost = FALSE
+  inventory_cost = FALSE,
+  ordering_cost = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ sim_min_Q_pois(
 \item{shortage_cost}{shortage cost per unit of sales lost}
 
 \item{inventory_cost}{inventory cost per unit.}
+
+\item{ordering_cost}{ordering cost for every time an order is made.}
 }
 \value{
 a list of two date frames, the simulation and the metrics.
@@ -42,8 +45,8 @@ orders are lost if inventory level is less than requested demand, also ordering 
 }
 \examples{
 sim_min_Q_pois(demand = rpois(50,8),lambda = 4,leadtime = 4,shortage_cost =30,
- Quantity = 12,service_level = 0.70,
-inventory_cost = 50)
+Quantity = 12,service_level = 0.70,
+inventory_cost = 50,ordering_cost=FALSE)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

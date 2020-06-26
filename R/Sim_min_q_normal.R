@@ -16,6 +16,8 @@
 #' @param shortage_cost  shortage cost per unit of sales lost
 #' @param Quantity  Fixed order quantity to be ordered at min
 #' @param inventory_cost  inventory cost per unit.
+#' @param ordering_cost  ordering cost for every time an order is made.
+
 #' @import stats
 
 #' @return a list of two date frames, the simulation and the metrics.
@@ -23,8 +25,8 @@
 #' @export
 #' @examples
 #' sim_min_Q_normal(demand = rpois(50,8),mean = 5,sd=1,
-#' service_level = 0.5,leadtime = 4,
-#' shortage_cost = 5, Quantity = 12,inventory_cost = 1)
+#' service_level = 0.9,leadtime = 4,
+#' shortage_cost = 5, Quantity = 12,inventory_cost = 1,ordering_cost = 50)
 
 
 
@@ -33,13 +35,14 @@
 
 
 sim_min_Q_normal<- function(demand,mean,sd,leadtime,service_level,Quantity,
-                        shortage_cost= FALSE,inventory_cost=FALSE){
+                        shortage_cost= FALSE,inventory_cost=FALSE,
+                        ordering_cost=FALSE){
 
 mu = mean
 L = leadtime
 Q =Quantity
-min= round((mean *leadtime)+ ((sd*sqrt(leadtime))* qnorm(0.95)),digits = 0)
-saftey_stock= ((sd*sqrt(leadtime))* qnorm(0.95))                        
+min= round((mean *leadtime)+ ((sd*sqrt(leadtime))* qnorm(service_level)),digits = 0)
+saftey_stock= ((sd*sqrt(leadtime))* qnorm(service_level))                        
 
   
   
@@ -78,6 +81,7 @@ data$lost_order<- data$demand -data$sales
 
 metrics<- data.frame(shortage_cost= sum(data$lost_order,na.rm = TRUE)*shortage_cost,
                      inventory_cost= sum(data$inventory_level,na.rm = TRUE)*inventory_cost,
+                     ordering_cost=length(which(data$order >0))*ordering_cost,
                      average_inventory_level= mean(data$inventory_level,na.rm = TRUE),
                      total_lost_sales= sum(data$lost_order,na.rm = TRUE),
                      Item_fill_rate= 1-(sum(data$lost_order,na.rm = TRUE)/sum(demand[1:(length(demand)-1)])),

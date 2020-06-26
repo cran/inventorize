@@ -1,4 +1,4 @@
-67a4782be82b172915b3476a5a99a1ea *DESCRIPTION
+03cd170ed504a288e4cec8f1659d95f5 *DESCRIPTION
 957b9d6e62839184955d16a951b0b68c *NAMESPACE
 b471b00bb87c871dd87f0dd2f96c659b *R/ABC.R
 832b248e6560b1ead8c9f12eca581ea3 *R/CSOE.R
@@ -9,10 +9,10 @@ b4d336e3e3c713a7cfe88d9dcb79c684 *R/EPN_singleperiod.R
 430a3c0d78d0b452061095de794759cb *R/MPN_singleperiod.R
 f842debd3cb990c6f31083b2fbc7ffdb *R/MPP_singleperiod.R
 f05833dd4a056b287b6306f62f3d3f60 *R/Multi_Competing_optimization.R
-92aa1585b817e97a6728d37738945fa2 *R/Sim_min_Q_pois.R
-b922db183421f9522e617206b84ee0f3 *R/Sim_min_q_normal.R
-26a7a358efdc2704b88cd6f5e46caabc *R/Sim_minmax_normal.R
-f025f68a7253b4c751d3574f66af12ff *R/Sim_minmax_pois.R
+07f463d0b0be525b0416101176e56134 *R/Sim_min_Q_pois.R
+aad664330b7a47395957e274ce3286db *R/Sim_min_q_normal.R
+b223f6e1608f26899f14bd7382e9a80b *R/Sim_minmax_normal.R
+2bdc3b2895f512d515d0314e43ef471f *R/Sim_minmax_pois.R
 eb639df553f178f5d3b6744836d3fbe8 *R/TQpractical.R
 e319da36cfee806e0618eed7a960027d *R/TRC.R
 4c6d3f137145d45e9c00e7de7119d972 *R/dl.sigmadl.R
@@ -68,9 +68,9 @@ eaf688ad8d7ea3fd29fc07648aa86fce *man/saftey_stock_normal.Rd
 4f37d2990593561a5a0453bf442ba9bb *man/safteystock_CIS_normal.Rd
 51754f4a0b357d918321afea54cb984a *man/safteystock_CSL_normal.Rd
 c49ae2836f130781eb8455ccbad79875 *man/safteystock_IFR_normal.Rd
-08074fafe970ef9959c3945369a41871 *man/sim_min_Q_normal.Rd
-7baa0c19d42f846610659d4c9644d07d *man/sim_min_Q_pois.Rd
-2c58978c437fd90cc87be4df22726b8c *man/sim_minmax_normal.Rd
-6c64b343ad1fdb61fee80926ae18e629 *man/sim_minmax_pois.Rd
+99c9d238cbba32d73794a65c4c9e6af7 *man/sim_min_Q_normal.Rd
+a9bcae8ef11e163f9cd93d927b7f408f *man/sim_min_Q_pois.Rd
+d30bed6ce2b159fb59ecc264a737d556 *man/sim_minmax_normal.Rd
+a58579b3c433fc92b1feb86c9db83983 *man/sim_minmax_pois.Rd
 57195f0e77f66f4c04b0d07f8ce1d569 *man/single_product_optimization.Rd
 0948a4c68e6b92728200f382c50bf241 *man/total.logistics.cost.Rd
