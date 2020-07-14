@@ -51,7 +51,7 @@ variables= rep(initial_value,n_variables)
 
 
 
-y=y
+y=data[["y"]]
 
 f<-function(variables){
 

@@ -2,7 +2,7 @@
 
 
 
-#' single_product_optimization
+#'single_product_optimization
 #'
 #' Calculating the optimum price based on linear and logit models for a single product.
 #'
@@ -15,7 +15,8 @@
 #' @param  x a vector of average weekly/monthly/daily price data of a product
 #' @param  y a vector of average weekly/monthly/daily sales data of a product
 #' @param service_product_name the name of the product or service.
-#' @param current_price the current price oof the product or service
+#' @param current_price the current price of the product or service.
+#' @param cost  cost of the product.
 #' @import ggplot2
 #' @import stats
 #' @importFrom magrittr %>%
@@ -28,14 +29,14 @@
 #' @export
 #' @examples
 #' single_product_optimization(x= c(5,8,10,12),
-#' y=c(25,21,23,15),
-#' service_product_name = "Goat Cheese",current_price = 8.5)
+#'y=c(25,21,23,15),
+#'service_product_name = "Goat Cheese",current_price = 8.5,cost=7)
 
 
+      
 
 
-
-single_product_optimization<- function(x,y,service_product_name,current_price){
+single_product_optimization<- function(x,y,service_product_name,current_price,cost){
 
   Measured <- as.data.frame(cbind(x, y))
   moodel<-lm(y~x,Measured)
@@ -78,10 +79,15 @@ single_product_optimization<- function(x,y,service_product_name,current_price){
   simulation_data$predicted_logit<- logit1(simulation_data$x)
   simulation_data$revenue_linear<- simulation_data$predicted_linear *simulation_data$x
   simulation_data$revenue_logit<- simulation_data$predicted_logit *simulation_data$x
-
+  simulation_data$profit_linear<- simulation_data$revenue_linear-( simulation_data$predicted_linear*cost)
+  simulation_data$profit_logit<- simulation_data$revenue_logit-( simulation_data$predicted_logit*cost)
+  
 
   best_model<- ifelse(sum_squared_logit> squared_sum_lm,"Linear model","Logit model")
-
+  
+  best_price_profit_linear<- simulation_data$x[simulation_data$profit_linear==max(simulation_data$profit_linear)]
+  best_price_profit_logit<-simulation_data$x[simulation_data$profit_logit==max(simulation_data$profit_logit)]
+  
   best_price_linear<- simulation_data$x[simulation_data$revenue_linear==max(simulation_data$revenue_linear)]
   best_price_logit<-simulation_data$x[simulation_data$revenue_logit==max(simulation_data$revenue_logit)]
   print(simulation_data %>% ggplot(aes(x=x,y= predicted_linear,color='Linear response function'))+geom_line()+theme(plot.title = element_text(hjust = 0.5))+
@@ -102,9 +108,10 @@ single_product_optimization<- function(x,y,service_product_name,current_price){
           annotate("text",label=paste("Best fitted is",best_model),size=3,x= mean(x),y=max(y))+theme(plot.title = element_text(hjust = 0.5)))
   all_data<-list(optimization_paremeters=Y,lm_model=moodel,squared_error_logit=print(paste('squared_error_logit= ',sum_squared_logit)),
                  squared_error_linear=print(paste('squared_errorr_lm= ',squared_sum_lm)),simulation_data=simulation_data,best_model=print(paste('best_model is',
-                        best_model,'for',service_product_name)),optimum_linear=print(paste('optimum linear price is',best_price_linear,'for',service_product_name)),
-                 optimum_logit=print(paste('optimum logit price is',best_price_logit,'for',service_product_name)),
-                 current_price=print(paste('current price is ',current_price)),article_name=paste('article name is',service_product_name),predixtions=Measured)
+                        best_model,'for',service_product_name)),optimum_linear=print(paste('optimum linear revenue price is',best_price_linear,'for',service_product_name)),
+                 optimum_logit=print(paste('optimum logit revenue price is',best_price_logit,'for',service_product_name)),
+                 current_price=print(paste('current price is ',current_price)),article_name=paste('article name is',service_product_name),predixtions=Measured,
+                 point_of_maximum_profits= list(linear=best_price_profit_linear,logit=best_price_profit_logit))
   return(all_data)
 }
 

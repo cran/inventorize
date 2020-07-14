@@ -1,6 +1,6 @@
 Package: inventorize
 Title: Inventory Analytics and Cost Calculations
-Version: 1.0.5
+Version: 1.0.6
 Authors@R: person("Haytham", "Omar", email = "haytham@rescaleanalytics.com", role = c("aut", "cre"))
 Description: Simulate inventory policies, facilitate inventory analysis calculations such as  stock levels and re-order points,pricing and promotions calculations. 
   The package includes calculations of inventory metrics, stock-out calculations and ABC analysis calculations.
@@ -22,8 +22,8 @@ LazyData: true
 Imports: dplyr, ggplot2, stats, magrittr, plyr, tidyr, plotly,
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2020-06-26 10:54:35 UTC; haythamomar
+Packaged: 2020-07-14 07:18:46 UTC; haythamomar
 Author: Haytham Omar [aut, cre]
 Maintainer: Haytham Omar <haytham@rescaleanalytics.com>
 Repository: CRAN
-Date/Publication: 2020-06-26 14:50:02 UTC
+Date/Publication: 2020-07-14 09:20:02 UTC
