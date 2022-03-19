@@ -25,7 +25,8 @@ this is the second version of the inventorize package, all the fucntions are  wi
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
-TRC(annualdemand=2500,orderingcost=250,purchasecost=98,holdingrate=0.25,na.rm=TRUE)
+TRC(annualdemand=2500,orderingcost=250,purchasecost=98,
+holdingrate=0.25,na.rm=TRUE)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

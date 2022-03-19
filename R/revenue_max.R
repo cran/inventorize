@@ -15,8 +15,17 @@
 #' @param  priceP2 average price of sku in period 2.
 #'
 #' @param na.rm logical with a default of TRUE
-#' @import stats
-
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
+#' @importFrom stats qpois
+#' @importFrom stats sd
 #' @return the elasticity ratio in unit sales, the -ve number represents the increase in sales for each decrease of unit currency.
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export

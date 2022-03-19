@@ -15,10 +15,16 @@
 #' @param  g  numeric,,salvage or discounted value if sold after season,if there is no salvage , zero is placed in the argument.
 #' @param  b numeric, peanlity cost of not satisfying demand if any, if not, zero is placed in the argument.
 #' @param  na.rm A logical indicating whether missing values should be removed
-#'
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return a dataframe that contains calculations of the maximum expected profit from a newsvendor model based on normal distribution.
-#'
-#'@import stats
 #'
 #'@author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without

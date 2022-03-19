@@ -12,8 +12,15 @@
 #' @param  standerddeviation numeric annual standard deviation of the demand.
 #' @param leadtime numeric,leadtime of order in weeks.
 #' @param na.rm logical with a default of TRUE
-
-#' @import stats
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return a dataframe that contains calculations of the expected profit from a newsvendor model based on normal distribution.
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export

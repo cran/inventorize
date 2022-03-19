@@ -4,18 +4,27 @@
 \alias{single_product_optimization}
 \title{single_product_optimization}
 \usage{
-single_product_optimization(x, y, service_product_name, current_price, cost)
+single_product_optimization(
+  x,
+  y,
+  service_product_name,
+  degree_poly = 3,
+  current_price,
+  plot = FALSE
+)
 }
 \arguments{
-\item{x}{a vector of average weekly/monthly/daily price data of a product}
+\item{x}{a vector of average weekly/monthly/daily price data of a product.}
 
-\item{y}{a vector of average weekly/monthly/daily sales data of a product}
+\item{y}{a vector of average weekly/monthly/daily sales data of a product.}
 
 \item{service_product_name}{the name of the product or service.}
 
-\item{current_price}{the current price of the product or service.}
+\item{degree_poly, }{the polynomial degrees, the default is 3.}
 
-\item{cost}{cost of the product.}
+\item{current_price}{the current price of the product or service}
+
+\item{plot}{Default is false,if true, a plot is generated}
 }
 \value{
 a list of the squared error of th logit model, the squared error of the linear model, the best model for this product, the optimum
@@ -34,9 +43,8 @@ one time with a logit model. a simulation is then made with each price response 
  are affected by spikes and declines due to regular events as holidays and weekends.
 }
 \examples{
-single_product_optimization(x= c(5,8,10,12),
-y=c(25,21,23,15),
-service_product_name = "Goat Cheese",current_price = 8.5,cost=7)
+single_product_optimization(x= c(5,8,10,12),y=c(25,21,23,15),
+service_product_name = "Movie",current_price = 8.5,plot=TRUE)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

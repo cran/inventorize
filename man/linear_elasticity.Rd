@@ -4,7 +4,7 @@
 \alias{linear_elasticity}
 \title{linear_elasticity}
 \usage{
-linear_elasticity(prices, Sales, present_price, cost_of_product)
+linear_elasticity(prices, Sales, present_price, cost_of_product, plot = FALSE)
 }
 \arguments{
 \item{prices}{vector of prices.}
@@ -14,37 +14,34 @@ linear_elasticity(prices, Sales, present_price, cost_of_product)
 \item{present_price}{numeric,  present price of the product .}
 
 \item{cost_of_product}{cost of the product, if the product/service has no cost ,then cost is set to zero.}
+
+\item{plot}{Default is false,if true, a plot is generated}
 }
 \value{
 the elasticity at the present price , the price for optimum revenue and thee price for optimum cost.
 }
 \description{
 calculating elasticity of a linear price response function
-}
-\details{
-This function is helpful to determine if your product is elastic or not based on a linear price response function. 
- if product demand is
+ This function is helpful to determine if your product is elastic or not based on a linear price response function. if product demand is
  not linear to price, try using the single product optimization function instead. The price elasticity of demand
  which is often shortened to demand elasticity
  is defined to be the percentage change in quantity demanded, q, divided by the percentage change in price, p.
- When |E| > 1, we say the good is price elastic.In this case, % change Q > % change P, and so, for a 1 % 
- change in price, there is a greater than 1 %
+ When Elasticity bigger 1, we say the good is price elastic.In this case, percentQ bigger percentP, and so, for a 1 percent change in price, there 
+ is a greater than 1 percent
  change in quantity demanded.In this case, management should decrease price to have a higher revenue.
- When |E| < 1, we say the good is price inelastic.In this case, % change Q < % change P, and so, 
- for a 1 % change in price, there is a less than 1 % change
+ When Elasticity smaller 1, we say the good is price inelastic.In this case, percentQ smaller percentP, and so, for a 1 percent change in price, there 
+ is a less than 1 percent change
 in quantity demanded.In this case, management should increase price to have a higher revenue.
- When |E| = 1, we say the good is price unit elastic.In this case, % change Q = % change P , 
- and so, for a 1% change in price,
- there is also an 1% change in quantity demanded.
+ When Elasticity equal 1, we say the good is price unit elastic.In this case, percentQ equal percentP , and so, for a 1percent change in price,
+ there is also an 1percent change in quantity demanded.
  This is the optimal price which means it maximizes revenue.
 }
 \note{
-this is the third version of the inventorize package, all the fucntions are  without
+this is the third version of the inventorize package, all the functions are  without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
-linear_elasticity(prices=c(5,10,8,5,14),
-Sales= c(450,400,420,450,360),
+linear_elasticity(prices=c(5,10,8,5,14),Sales= c(450,400,420,450,360),
 present_price=15,cost_of_product=40)
 }
 \author{

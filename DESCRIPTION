@@ -1,29 +1,28 @@
 Package: inventorize
-Title: Inventory Analytics and Cost Calculations
-Version: 1.0.6
+Title: Inventory Analytics, Pricing and Markdowns
+Version: 1.0.8
 Authors@R: person("Haytham", "Omar", email = "haytham@rescaleanalytics.com", role = c("aut", "cre"))
-Description: Simulate inventory policies, facilitate inventory analysis calculations such as  stock levels and re-order points,pricing and promotions calculations. 
+Description: Simulate inventory policies with and without forecasting, facilitate inventory analysis calculations such as  stock levels and re-order points,pricing and promotions calculations. 
   The package includes calculations of inventory metrics, stock-out calculations and ABC analysis calculations.
-    The package includes revenue management techniques such as Multi-product optimization,logit model optimization.
+    The package includes revenue management techniques such as Multi-product optimization,logit and polynomial model optimization.
   The functions are referenced from :
   1-Harris, Ford W. (1913). "How many parts to make at once". Factory, The Magazine of Management. <isbn10: 135–136, 152>.
   2- Nahmias, S. Production and Operations Analysis. McGraw-Hill International Edition. <isbn: 0-07- 2231265-3. Chapter 4>.
   3-Silver, E.A., Pyke, D.F., Peterson, R. Inventory Management and Production Planning and Scheduling. <isbn: 978-0471119470>. 
   4-Ballou, R.H. Business Logistics Management. <isbn: 978-0130661845>. Chapter 9.
-  5-MIT Micromasters Program.
+  5-MIT Micromasters Program. 
   6- Columbia University  course for supply and demand analysis.
   8- Price Elasticity of Demand MATH 104,Mark Mac Lean (with assistance from Patrick Chan) 2011W
   For further details or correspondence :<www.linkedin.com/in/haythamomar>, <www.rescaleanalytics.com>.
 Depends: R (>= 3.4.0)
 License: GPL-3
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 Encoding: UTF-8
-LazyData: true
-Imports: dplyr, ggplot2, stats, magrittr, plyr, tidyr, plotly,
-Suggests: knitr, rmarkdown
+Imports: ggplot2, dplyr, magrittr, tidyr, plotly, plyr,
+Suggests: knitr, rmarkdown,
 NeedsCompilation: no
-Packaged: 2020-07-14 07:18:46 UTC; haythamomar
+Packaged: 2022-03-19 17:30:29 UTC; haythamomar
 Author: Haytham Omar [aut, cre]
 Maintainer: Haytham Omar <haytham@rescaleanalytics.com>
 Repository: CRAN
-Date/Publication: 2020-07-14 09:20:02 UTC
+Date/Publication: 2022-03-19 17:50:02 UTC

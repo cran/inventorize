@@ -15,7 +15,16 @@
 #' @param  cost, numeric cost of the SKU
 #' @param  holdingrate ,numeric, holding rate per item/year
 #' @param na.rm A logical indicating whether missing values should be removed
-#'@import stats
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
+#' @importFrom stats uniroot
 #' @return a dataframe that contains
 #' demand leadtime, sigmadl(standard deviation in leadtime), saftey factor k determined
 #' based on item fillrate provided, unit normal loss function expected units to be short,cycle service level, fill rate,implied cost

@@ -13,11 +13,17 @@
 #' @param  holdingrate  numeric,,holding charge per item per year.
 #' @param  Citemshort numeric, peanlity cost of not satisfying demand if any, if not, zero is placed in the argument.
 #' @param na.rm Logical, True to remove na.
-#'
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #'
 #' @return a dataframe that contains calculations of K the cost per item short metric noting that condition must me less than 1.
-#'
-#'@import stats
 #'@author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.

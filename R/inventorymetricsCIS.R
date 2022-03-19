@@ -15,13 +15,21 @@
 #' @param  cost, numeric cost of the SKU
 #' @param  holdingrate ,numeric, holding rate per item/year
 #' @param na.rm A logical indicating whether missing values should be removed
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @return a dataframe that contains demand leadtime,sigmadl(standard deviation in leadtime),saftey factor k determined
 #' based on cost per itemshort,unit normal loss function,expected units to be short,cycle service level, fill rate,implied cost
 #' per stockout event, saftey stock and suggested reorder point.
-#' @import stats
 #' @export
 #' @examples
 #' inventorymetricsCIS(CIS= 90, demand= 35000,standerddeviation=9000,

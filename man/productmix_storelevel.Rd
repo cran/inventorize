@@ -4,18 +4,27 @@
 \alias{productmix_storelevel}
 \title{productmix_storelevel}
 \usage{
-productmix_storelevel(SKUs, sales, revenue, storeofsku, na.rm = TRUE)
+productmix_storelevel(
+  SKUs,
+  sales,
+  revenue,
+  storeofsku,
+  na.rm = TRUE,
+  plot = FALSE
+)
 }
 \arguments{
 \item{SKUs, }{charachter, a vector of SKU names.}
 
 \item{sales, }{vector, a vector of items sold per sku, should be the same number of rows as SKUs.}
 
-\item{revenue}{vector, a vector of total revenue  per sku, should be the same number of rows as SKUs.}
+\item{revenue, }{vector, a vector of total revenue  per sku, should be the same number of rows as SKUs.}
 
-\item{storeofsku}{vector, which store the SKU is sold at.should be the same number of rows as SKUs.}
+\item{storeofsku, }{vector, which store the SKU is sold at.should be the same number of rows as SKUs.}
 
 \item{na.rm, }{logical and by default is TRUE}
+
+\item{plot, }{default is FALSE,if true a plot is generated}
 }
 \value{
 a dataframe that contains ABC categories by store with a bar plot of the count of items in each category.
@@ -26,7 +35,7 @@ Identyfing ABC category based on the pareto rule.A category is up to 80%. B cate
 in this fuction the data is splitted by store and a product mix is made on each store individually.
 }
 \note{
-this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
+this is the first version of the inventorize package, all the functions are common knowledge for supply chain without
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{

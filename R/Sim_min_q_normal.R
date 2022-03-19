@@ -17,10 +17,16 @@
 #' @param Quantity  Fixed order quantity to be ordered at min
 #' @param inventory_cost  inventory cost per unit.
 #' @param ordering_cost  ordering cost for every time an order is made.
-
-#' @import stats
-
 #' @return a list of two date frames, the simulation and the metrics.
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
 #' @examples
@@ -78,6 +84,7 @@ data<-data.frame(period= seq(1:(N+1)),demand=demand,sales=sales,inventory_level=
                  recieved=recieved)
 
 data$lost_order<- data$demand -data$sales
+message('this function is deprecated, kindly use sim_min_Q() instead')
 
 metrics<- data.frame(shortage_cost= sum(data$lost_order,na.rm = TRUE)*shortage_cost,
                      inventory_cost= sum(data$inventory_level,na.rm = TRUE)*inventory_cost,

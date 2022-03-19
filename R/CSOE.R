@@ -18,10 +18,18 @@
 #'
 #' @return a dataframe that contains calculations of K and the minimum quantity to be put in stock .
 #'
-#' @import stats
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @export
 #' @examples
 #' CSOE(quantity=1000,demand=40000,standerddeviation=200,leadtimeinweeks=3,

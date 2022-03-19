@@ -10,10 +10,17 @@
 #'
 #' @param  sd_leadtime  numeric,standard deviation of leadtime
 #'
-#'
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return a dataframe that contains calculations of the expected demand lead time and the expected saftey stock during leadtime. It is noted that saftey stock here is
 #' more than normal due to leadtime variability.
-#' @import stats
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.

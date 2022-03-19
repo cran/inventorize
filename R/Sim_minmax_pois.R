@@ -16,9 +16,15 @@
 #' @param service_level  cycle service level requested
 #' @param inventory_cost  inventory cost per unit.
 #' @param ordering_cost  ordering cost for every time an order is made.
-
-#' @import stats
-
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return a list of two date frames, the simulation and the metrics.
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
@@ -65,6 +71,7 @@ sim_minmax_pois<- function(demand,lambda,leadtime,service_level,Max,
     IP[t] = IP[t-1] + order[t] - sales[t]
     recieved[t]<- order[t-L]
   }
+  message('this function is deprecated, kindly use sim_min_max() instead')
   
   data<-data.frame(period= seq(1:(N+1)),demand=demand,sales=sales,inventory_level=I,
                    inventory_position=IP,s= rep(min,N+1),Max=Max,order= order,

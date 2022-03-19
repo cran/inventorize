@@ -13,7 +13,15 @@
 #' @param priceP1 numeric,  average price of sku in period 1.
 #'
 #' @param  priceP2 average price of sku in period 2.
-
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return the elasticity ratio in unit sales, the -ve number represents the increase in sales for each decrease of unit currency.
 #' @author "haytham omar  email: "<haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without

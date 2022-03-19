@@ -17,9 +17,15 @@
 #' @param Max  Max quantity for order up to level
 #' @param inventory_cost  inventory cost per unit.
 #' @param ordering_cost  ordering cost for every time an order is made.
-
-#' @import stats
-
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return a list of two date frames, the simulation and the metrics.
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
@@ -76,6 +82,7 @@ sim_minmax_normal<- function(demand,mean,sd,leadtime,service_level,Max,
                    recieved=recieved)
   
   data$lost_order<- data$demand -data$sales
+  message('this function is deprecated, kindly use sim_min_max() instead')
   
   metrics<- data.frame(shortage_cost= sum(data$lost_order,na.rm = TRUE)*shortage_cost,
                        inventory_cost= sum(data$inventory_level,na.rm = TRUE)*inventory_cost,

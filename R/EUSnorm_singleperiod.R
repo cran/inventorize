@@ -8,12 +8,19 @@
 #' @param demand numeric,annual Expected  demand of the SKU .
 #' @param standerddeviation numeric,  standard  deviation of the SKU during season.
 #' @param na.rm  logical,TRUE
-#'
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #'
 #'
 #' @return a dataframe that contains Expected unit short,k and g(k).
 #'
-#' @import stats
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.

@@ -20,9 +20,15 @@
 #' @param Base  Set to False for automatic calculation,else manual input of base.
 #' @param inventory_cost  inventory cost per unit.
 #' @param ordering_cost  ordering cost for every time an order is made.
-
-#' @import stats
-
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 #' @return a list of two date frames, the simulation and the metrics.
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
@@ -79,7 +85,7 @@ sim_base_normal<- function(demand,mean,sd,leadtime,service_level,Base=FALSE,orde
                    recieved=recieved)
   
   data$lost_order<- data$demand -data$sales
-  
+  message('this function is deprecated, kindly use sim_base_stock_policy() instead')
   metrics<- data.frame(shortage_cost= sum(data$lost_order,na.rm = TRUE)*shortage_cost,
                        inventory_cost= sum(data$inventory_level,na.rm = TRUE)*inventory_cost,
                        average_inventory_level= mean(data$inventory_level,na.rm = TRUE),
@@ -91,8 +97,6 @@ sim_base_normal<- function(demand,mean,sd,leadtime,service_level,Base=FALSE,orde
   return(list(simu_data=data,metrics=metrics))                
   
 }
-
-
 
 
 

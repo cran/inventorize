@@ -20,9 +20,17 @@
 #'
 #' @importFrom  plotly ggplotly
 #' @import ggplot2
-#' @import stats
 #' @importFrom magrittr %>%
 #' @import tidyr
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
 
 #' @return a data frame with the product names which are names of X,the intrinsic utility value,the current cost and the optimized price for each product
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"

@@ -11,11 +11,18 @@
 #' @param  leadtimeinweeks  leadtime in weeks or order.
 #' @param  csl  cycle service level requested
 #' @param na.rm Logical, remove na if TRUE
-#'
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
+#' @importFrom stats qpois
+#' @importFrom stats sd
 #' @return a dataframe that contains calculations of K the cost per item short metric noting that condition must me less than 1.
-#'
-#'@import stats
-#'
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @note this is the second version of the inventorize package, all the fucntions are  without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.

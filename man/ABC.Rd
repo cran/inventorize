@@ -4,12 +4,14 @@
 \alias{ABC}
 \title{ABC}
 \usage{
-ABC(data, na.rm = TRUE)
+ABC(data, na.rm = TRUE, plot = FALSE)
 }
 \arguments{
 \item{data, }{Data frame of tuo columns,first column is the item name, second column is the item value/flow/demand.}
 
 \item{na.rm, }{logical and by default is TRUE}
+
+\item{plot, }{default is FALSE,if true a plot is generated}
 }
 \value{
 a dataframe that contains ABC categories with a bar plot of the count of items in each category.

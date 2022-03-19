@@ -4,7 +4,7 @@
 \alias{productmix}
 \title{productmix}
 \usage{
-productmix(SKUs, sales, revenue, na.rm = TRUE)
+productmix(SKUs, sales, revenue, na.rm = TRUE, plot = FALSE)
 }
 \arguments{
 \item{SKUs, }{charachter, a vector of SKU names.}
@@ -14,6 +14,8 @@ productmix(SKUs, sales, revenue, na.rm = TRUE)
 \item{revenue}{price  vector, a vector of total revenu  per sku, should be the same number of rows as SKU.}
 
 \item{na.rm}{, logical and by default is TRUE}
+
+\item{plot, }{default is FALSE,if true a plot is generated}
 }
 \value{
 a dataframe that contains ABC categories with a bar plot of the count of items in each category.

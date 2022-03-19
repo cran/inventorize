@@ -36,5 +36,9 @@ this is the second version of the inventorize package, all the fucntions are  wi
 any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 }
 \examples{
-TQpractical(annualdemand=1000,orderingcost=100,purchasecost=72,holdingrate=0.25,na.rm=TRUE)
+TQpractical(annualdemand=1000,orderingcost=100,
+purchasecost=72,holdingrate=0.25,na.rm=TRUE)
+}
+\author{
+"haytham omar  email: <haytham@rescaleanalytics.com>"
 }

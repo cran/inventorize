@@ -11,11 +11,18 @@
 #' @param na.rm Logical, TRUE to remove na.
 #'
 #' @param  leadtime  leadtime in weeks of order.
-#'
-#'
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
+#' @importFrom stats uniroot
+
 #' @return a dataframe that contains calculations of K the  item fill rate metric.cycle service level and expected unit short.
-#'
-#'@import stats
 #' @author "haytham omar  email: <h.omar5942@gmail.com>"
 #' @note this is the first version of the inventorize package, all the fucntions are basic knowlege for supply chain without
 #' any contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.

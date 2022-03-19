@@ -9,20 +9,32 @@
 #'
 #' @param  SKUs, charachter, a vector of SKU names.
 #' @param  sales, vector, a vector of items sold per sku, should be the same number of rows as SKUs.
-#' @param   revenue  vector, a vector of total revenue  per sku, should be the same number of rows as SKUs.
-#' @param   storeofsku  vector, which store the SKU is sold at.should be the same number of rows as SKUs.
-#'
+#' @param   revenue,  vector, a vector of total revenue  per sku, should be the same number of rows as SKUs.
+#' @param   storeofsku,  vector, which store the SKU is sold at.should be the same number of rows as SKUs.
+#' @param na.rm, logical and by default is TRUE
+
+#' @param plot, default is FALSE,if true a plot is generated
 #'
 #' @param na.rm, logical and by default is TRUE
-#'
 #' @return a dataframe that contains ABC categories by store with a bar plot of the count of items in each category.
+#' @importFrom stats dnorm
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats optim
+#' @importFrom stats optimize
+#' @importFrom stats pnorm
+#' @importFrom stats ppois
+#' @importFrom stats predict
+#' @importFrom stats qnorm
+#' @importFrom stats qpois
+#' @importFrom stats sd
 #' @import ggplot2
 #' @importFrom dplyr mutate
 #' @importFrom dplyr arrange
 #' @importFrom magrittr %>%
 #' @importFrom plyr ldply
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
-#' @note this is the first version of the inventorize package, all the fucntions are common knowlege for supply chain without
+#' @note this is the first version of the inventorize package, all the functions are common knowledge for supply chain without
 #' any academic contribution from my side, the aim is to facilitate and ease much of the bookkeeping that is endured during stock analysis.
 #' @export
 #' @examples
@@ -37,17 +49,17 @@
 
 
 
-productmix_storelevel<- function(SKUs,sales,revenue,storeofsku,na.rm=TRUE){
+productmix_storelevel<- function(SKUs,sales,revenue,storeofsku,na.rm=TRUE,plot=FALSE){
 
   productmix<- function(store) {
 
 
 
   store$sales_mix<- store$sales/sum(store$sales)
-  store<-store %>% arrange(desc(sales))
+  store<-store %>% dplyr::arrange(desc(sales))
   store$comulative_sales<-cumsum(store$sales_mix)
   store
-  store<- store %>% arrange(desc(revenue))
+  store<- store %>% dplyr::arrange(desc(revenue))
   store$revenue_mix<- store$revenue/sum(store$revenue,na.rm = TRUE)
   store
   store$comulative_revenue<- cumsum(store$revenue_mix)
@@ -94,8 +106,10 @@ for (i in 1:length(productdata_splitted)){
 
 
 productmix_bystore<-ldply(matrix_list,data.frame)
+if(plot==TRUE){
 print(ggplot(productmix_bystore,aes(x=as.factor(storeofsku),fill=product_mix))+geom_bar()+xlab("Category count at store level")
       +theme_minimal()+ggtitle("Product mix at store level ")+theme(plot.title = element_text(hjust = 0.5)))
+}
 return(productmix_bystore)
 
 
