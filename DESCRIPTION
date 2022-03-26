@@ -1,6 +1,6 @@
 Package: inventorize
 Title: Inventory Analytics, Pricing and Markdowns
-Version: 1.0.8
+Version: 1.0.9
 Authors@R: person("Haytham", "Omar", email = "haytham@rescaleanalytics.com", role = c("aut", "cre"))
 Description: Simulate inventory policies with and without forecasting, facilitate inventory analysis calculations such as  stock levels and re-order points,pricing and promotions calculations. 
   The package includes calculations of inventory metrics, stock-out calculations and ABC analysis calculations.
@@ -21,8 +21,8 @@ Encoding: UTF-8
 Imports: ggplot2, dplyr, magrittr, tidyr, plotly, plyr,
 Suggests: knitr, rmarkdown,
 NeedsCompilation: no
-Packaged: 2022-03-19 17:30:29 UTC; haythamomar
+Packaged: 2022-03-26 21:25:12 UTC; haythamomar
 Author: Haytham Omar [aut, cre]
 Maintainer: Haytham Omar <haytham@rescaleanalytics.com>
 Repository: CRAN
-Date/Publication: 2022-03-19 17:50:02 UTC
+Date/Publication: 2022-03-26 21:40:02 UTC

@@ -74,9 +74,10 @@ sim_min_max<- function (demand, mean = FALSE, sd=FALSE, leadtime, service_level,
     if(recalculate_windows != FALSE){
       mean[1]<- demand[1]
       sd[1]<- sd(demand)
-      for (i in 2: length(mean)){
+      for (i in 1: length(mean)){
         mean[i]= mean(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)
-        sd[i]= ifelse(is.na(sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)),sd[i-1],sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE))
+        sd[i]= ifelse(is.na(sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)),sd[i-1],
+        sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE))
         if(distribution== 'normal'){
           
           minn[i] = round((mean[i] * (leadtime)) + ((sd[i] * sqrt(leadtime)) * 

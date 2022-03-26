@@ -6,7 +6,7 @@
 #'  orders are lost if inventory level is less than requested demand, also ordering is made at
 #'  day t+1, metrics like item fill rate and cycle service level are calculated. 
 #'  the min is calculated based on a normal distribution or a poisson distribution, also min can be set manually.
-#'  and order is equal to max((Max[t]-inventory position [t-1])+ forecast[t],0)
+#'  and order is equal to max((Max[t]-inventory position [t-1])+ sales[t],0)
 #' @param  demand  A vector of demand in N time periods.
 #' @param  forecast  the forecast vector of equal n periods to demand.
 #' @param leadtime  lead time from order to arrival (order to delivery time)
@@ -198,7 +198,7 @@ Max_policy_dynamic<-function (demand,forecast, leadtime, service_level,initial_i
                         Item_fill_rate = 1 - (sum(data$lost_order, na.rm = TRUE)/sum(demand[1:(length(demand) - 1)])), 
                         cycle_service_level = 1 -(length(which(data$lost_order > 0))/(length(demand) - 1)), saftey_stock = mean(saftey_stock,na.rm = TRUE),
                         average_sales= mean(sales,na.rm = TRUE),rmse= sqrt(mean((demand-forecast)^2,na.rm=TRUE)),
-                        mae= mean(abs(demand-forecast),na.rm = TRUE),me= mean(demand-forecast),mape= mean((abs(demand-forecast)/abs(forecast))*100,na.rm=TRUE))
+                        mae= mean(abs(demand-forecast),na.rm = TRUE),me= mean(demand-forecast),mape= mean((abs(demand-forecast)/abs(demand))*100,na.rm=TRUE))
   metrics$"average_flow_time(throughput)"= metrics$average_inventory_level/metrics$average_sales
   metrics$demand_class<- demand_class$Type
   if(plot== TRUE){

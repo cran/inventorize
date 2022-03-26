@@ -211,7 +211,7 @@ total_lost_sales = sum(data$lost_order, na.rm = TRUE), average_ordering_quantity
 Item_fill_rate = 1 - (sum(data$lost_order, na.rm = TRUE)/sum(demand[1:(length(demand) - 1)])), 
 cycle_service_level = 1 -(length(which(data$lost_order > 0))/(length(demand) - 1)), saftey_stock = mean(saftey_stock,na.rm = TRUE),
 average_sales= mean(sales,na.rm = TRUE),rmse= sqrt(mean((demand-forecast)^2,na.rm=TRUE)),mae= mean(abs(demand-forecast),na.rm = TRUE),
-me= mean(demand-forecast),mape= mean((abs(demand-forecast)/abs(forecast))*100,na.rm=TRUE))
+me= mean(demand-forecast),mape= mean((abs(demand-forecast)/abs(demand))*100,na.rm=TRUE))
   metrics$"average_flow_time(throughput)"= metrics$average_inventory_level/metrics$average_sales
   metrics$demand_class<- demand_class$Type
   if(plot== TRUE){

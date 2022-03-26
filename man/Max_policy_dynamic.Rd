@@ -67,7 +67,7 @@ The Function takes a demand vector, mean of demand ,sd,lead time and requested s
  orders are lost if inventory level is less than requested demand, also ordering is made at
  day t+1, metrics like item fill rate and cycle service level are calculated. 
  the min is calculated based on a normal distribution or a poisson distribution, also min can be set manually.
- and order is equal to max((Max[t]-inventory position [t-1])+ forecast[t],0)
+ and order is equal to max((Max[t]-inventory position [t-1])+ sales[t],0)
 }
 \examples{
 Max_policy_dynamic(demand = rnorm(90,9,2),forecast = rpois(90,9) ,

@@ -87,7 +87,14 @@ periodic_policy<-function (demand, mean = FALSE, sd=FALSE, leadtime, service_lev
         
       }
       
-    }
+      
+      Max[1]= max[2]
+      for (i in 2: length(max)){
+        Max[i]<- ifelse(i %% recalculate !=0,Max[i-1],max[i])
+      }
+      
+      
+    }}
     
     classfication <- function(demand){
       intervals <- function(x){
@@ -135,12 +142,7 @@ periodic_policy<-function (demand, mean = FALSE, sd=FALSE, leadtime, service_lev
     
     demand_class= classfication(demand)
     
-    
-    Max[1]= max[2]
-    for (i in 2: length(max)){
-      Max[i]<- ifelse(i %% recalculate !=0,Max[i-1],max[i])
-    }
-  }
+   
   
   
   
@@ -241,12 +243,5 @@ periodic_policy<-function (demand, mean = FALSE, sd=FALSE, leadtime, service_lev
   
   return(list(simu_data = data, metrics = metrics))
 }
-
-
-
-
-
-
-
 
 
