@@ -67,7 +67,7 @@ Simulating a  periodic policy, different from R,s,S because here order is made a
 the Max is dynamically calculated based on a forecast vector. .
 }
 \details{
-The Function takes a demand vector, mean of demand ,sd,lead time and requested service level to simulate an inventory system, 
+The Function takes a demand vector, forecast vector and requested service level to simulate an inventory system, 
 orders are lost if inventory level is less than requested demand, also ordering is made at
  day t+1, metrics like item fill rate and cycle service level are calculated. 
  the min is calculated based on a normal distribution or a poisson distribution, also min can be set manually.

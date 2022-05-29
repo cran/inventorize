@@ -1,4 +1,4 @@
-b503482bf4b2732d32675e58fe2d859a *DESCRIPTION
+61a3be062a00512009567f1753a40f62 *DESCRIPTION
 93ef4ec0718912612c3542d2ec29062b *NAMESPACE
 0df55f7c4260b1c56da4674c3bbd12bc *R/ABC.R
 c3ed7b487bb4cfc3ca0fcda191f01e5a *R/CSOE.R
@@ -36,7 +36,7 @@ fdf61dd061e81fb795dd79f90765559b *R/inventorymetricsCSL.R
 d13fde9dfa82eb6f9c12d2a9d9af1351 *R/inventorymetricsIFR.R
 13e0de72b5e6765e4142b0a6b4cf87fb *R/linear_elasticity.R
 c2a19730e13b1ab8c358d3598add72a9 *R/periodic_policy.R
-fcd2fb649f3fde2ba4ede855fa802d53 *R/periodic_policy_dynamic.R
+6802f8133fd6a894fa88a19a1ee83a8b *R/periodic_policy_dynamic.R
 6876ae3b76686173a3c537818a00a944 *R/possible_markdowns.R
 fa75adc031882fa8368c35918fd28ac4 *R/product_mix.R
 b2f0b320bb0a957672a0a8f1a10f5d78 *R/product_mix_storelevel.R
@@ -88,7 +88,7 @@ f8a4335ff61069f164b127b7ea8c92d1 *man/inventorize.Rd
 14a2d6504fd155154b7bfaee4214c671 *man/inventorymetricsIFR.Rd
 def0a6256e0da93edc49b97292d64295 *man/linear_elasticity.Rd
 4b04147868cb26fd48c941efebb7fa04 *man/periodic_policy.Rd
-2f55438e4d8d995f17adff69df2aa02d *man/periodic_policy_dynamic.Rd
+7634188eb4f6ff24db32871857caed6d *man/periodic_policy_dynamic.Rd
 04f6d818e413b8ee5eeac13b1ea38ced *man/possible_markdowns.Rd
 3ab90bf3ca2611a9becee8251e2e79a3 *man/productmix.Rd
 ff05eae460d85154908d95145955afad *man/productmix_storelevel.Rd
