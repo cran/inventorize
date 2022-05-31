@@ -11,7 +11,8 @@
 #' @param  leadtimein_days  leadtime in days of order.
 #' @param  sd_leadtime_days  standard deviation of leadtime in days of order.
 #' @param  csl  cycle service level requested
-#' @param na.rm Logical, remove na if TRUE
+#' @param distribution  distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+#'  'poisson','gamma' and negative binomial 'nbinom'
 #' @importFrom stats dnorm
 #' @importFrom stats lm
 #' @importFrom stats median
@@ -21,6 +22,7 @@
 #' @importFrom stats ppois
 #' @importFrom stats predict
 #' @importFrom stats qnorm
+#' @importFrom stats qgamma
 #' @importFrom stats qpois
 #' @importFrom stats sd
 #' @return a dataframe that contains demand lead time,sigmadl,safteyfactor and re_order point.
@@ -34,18 +36,61 @@
 
 
 reorderpoint_leadtime_variability <-
-  function(dailydemand,dailystandarddeviation,leadtimein_days,sd_leadtime_days,csl,na.rm=TRUE){
+  function(dailydemand,dailystandarddeviation,leadtimein_days,sd_leadtime_days,csl,distribution= 'nbinom'){
 
-    DL<- dailydemand*leadtimein_days
+    dl<- dailydemand*leadtimein_days
     sigmadl<-sqrt( (leadtimein_days*(dailystandarddeviation)^2)+((dailydemand^2*(sd_leadtime_days)^2)))
-    safteyfactor<- qnorm(csl)
-    safteystock<-safteyfactor*sigmadl
-    quantityinstock<- DL+safteystock
-    allpar<- data.frame("demandleadtime"= DL,"sigmadl"=sigmadl,"safteyfactor"=safteyfactor,"reorder_point"=quantityinstock)
+    
+    if(distribution== 'normal'){
+      safteystock<- sigmadl *  qnorm( csl)
+    } else if(distribution== 'poisson'){
+      safteystock<-  qpois(csl, dl) - (dl)
+      
+      
+    }else if (distribution== 'gamma'){
+      alpha= dl ^2 / sigmadl^2
+      beta <- dl / sigmadl^2
+      
+      safteystock<- qgamma(csl,alpha,beta)-dl
+    } else if (distribution== 'nbinom'){
+      ComputeNBDoverR <- function(x, mu_R, sigm_R){
+        if(sigm_R^2 <= mu_R){
+          sigm_R<- 1.05 * sqrt(mu_R)
+        }
+        z <- (sigm_R ^ 2) / mu_R
+        if (z > 1){
+          P0 <- (1 / z) ^ (mu_R / (z - 1))
+          if (x == 0){
+            PX <- P0
+          } else {
+            PX <- P0
+            for (i in 1:x){
+              PX = (((mu_R / (z - 1)) + i - 1) / i) * ((z - 1) / z) * PX
+            }
+          }
+        }
+        
+        return(PX)}
+      
+      x <- 0
+      supp <- ComputeNBDoverR(x, dl, sigmadl)
+      while (supp < csl){
+        x <- x + 1
+        supp <- supp + ComputeNBDoverR(x, dl, sigmadl)
+      }
+      
+      safteystock<- x- dl
+    }
+    
+    
+  
+    quantityinstock<- dl+safteystock
+    allpar<- data.frame("demandleadtime"= dl,"sigmadl"=sigmadl,"safteystock"=safteystock,"reorder_point"=quantityinstock)
     return(allpar)
   }
 
 
-
+reorderpoint_leadtime_variability(dailydemand=50,dailystandarddeviation=5,
+                                 leadtimein_days=6,sd_leadtime_days=2,csl=0.90,distribution = 'gamma')
 
 

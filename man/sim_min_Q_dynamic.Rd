@@ -16,9 +16,11 @@ sim_min_Q_dynamic(
   inventory_cost = FALSE,
   ordering_cost = FALSE,
   distribution = "normal",
-  error_metric = "rmse",
+  error_metric = "mse",
+  smoothing_error = 0.2,
   metric_windows = FALSE,
-  plot = TRUE
+  plot = FALSE,
+  Backlogs = FALSE
 )
 }
 \arguments{
@@ -44,14 +46,20 @@ leadtime is calculated as (forecast of period t to forecast of period t+leadtime
 
 \item{ordering_cost}{numeric,Default is FALSE ordering cost for every time an order is made.}
 
-\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal' or 'poisson'}
+\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+'poisson','gamma' and negative binomial 'nbinom'}
 
 \item{error_metric}{metric is currently 'rmse' and 'mae', this calculates the error from period 1 to period t unless metric_windows is set.
 this contributes to the calculation of saftey stock. default is 'rmse'}
 
+\item{smoothing_error}{number between 0 and 1 to smooth the error as alpha x error[t] + (1-alpha) x error t-1, if metric_windows is used, smoothing 
+error has to be FALSE}
+
 \item{metric_windows}{integer, for exammple if it is set to 4 rmse for t is calculated from t-1 to t-4,default is FALSE}
 
-\item{plot}{Logical, Default is False, if true a plot is generated}
+\item{plot}{Logical, Default is False, if true a plot is generated.}
+
+\item{Backlogs}{Logical, Default is False, if true inventory level accounts for previous lost orders.}
 }
 \value{
 a list of two date frames, the simulation and the metrics. the metrics are (1) shortage cost, (2) inventory cost which

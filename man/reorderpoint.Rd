@@ -9,7 +9,7 @@ reorderpoint(
   dailystandarddeviation,
   leadtimein_days,
   csl,
-  na.rm = TRUE
+  distribution = "normal"
 )
 }
 \arguments{
@@ -21,7 +21,8 @@ reorderpoint(
 
 \item{csl}{cycle service level requested}
 
-\item{na.rm}{Logical, remove na if TRUE}
+\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+'poisson','gamma' and negative binomial 'nbinom'.}
 }
 \value{
 a dataframe that contains demand lead time,sigmadl,safteyfactor and re_order point.

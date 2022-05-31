@@ -10,7 +10,7 @@ reorderpoint_leadtime_variability(
   leadtimein_days,
   sd_leadtime_days,
   csl,
-  na.rm = TRUE
+  distribution = "nbinom"
 )
 }
 \arguments{
@@ -24,7 +24,8 @@ reorderpoint_leadtime_variability(
 
 \item{csl}{cycle service level requested}
 
-\item{na.rm}{Logical, remove na if TRUE}
+\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+'poisson','gamma' and negative binomial 'nbinom'}
 }
 \value{
 a dataframe that contains demand lead time,sigmadl,safteyfactor and re_order point.

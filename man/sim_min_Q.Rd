@@ -19,7 +19,8 @@ sim_min_Q(
   distribution = "normal",
   recalculate = FALSE,
   recalculate_windows = FALSE,
-  plot = FALSE
+  plot = FALSE,
+  Backlogs = FALSE
 )
 }
 \arguments{
@@ -45,13 +46,17 @@ sim_min_Q(
 
 \item{ordering_cost}{numeric,Default is FALSE ordering cost for every time an order is made.}
 
-\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal' or 'poisson'}
+\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+'poisson','gamma' and negative binomial 'nbinom'}
 
-\item{recalculate}{integer, the mean and sd is recalculated every X periods from first period to x,default is FALSE .}
+\item{recalculate}{Logical, if true the mean and sd is recalculated every  period from first period to t,default is FALSE .}
 
-\item{recalculate_windows}{integer, the min  mean and sd windows to recalculate , for exammple if it is set to 4 mean and sd}
+\item{recalculate_windows}{integer, the min  mean and sd windows to recalculate , for example if it is set to 4 mean and sd
+is calculated from t to t-4,,default is FALSE, if TRUE, recalculate has to be TRUE Also.}
 
-\item{plot}{Logical, Default is False, if true a plot is generated
+\item{plot}{Logical, Default is False, if true a plot is generated}
+
+\item{Backlogs}{Logical, Default is False, if true inventory level accounts for previous lost orders
 is calculated from t to t-4,,default is FALSE .}
 }
 \value{
@@ -67,7 +72,7 @@ Simulating a Min,Q policy or also called S,Q policy,  .
 }
 \examples{
 sim_min_Q(demand = rpois(90,7),leadtime = 5,service_level = 0.95,Quantity = 80,
-recalculate = 5,distribution = 'normal',recalculate_windows = 5)
+recalculate = TRUE,distribution = 'normal',recalculate_windows = 5,Backlogs=FALSE)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"

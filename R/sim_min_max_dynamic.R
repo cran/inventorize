@@ -20,11 +20,15 @@
 #' @param shortage_cost  numeric,Default is FALSE shortage cost per unit of sales lost
 #' @param inventory_cost  numeric,Default is FALSE inventory cost per unit.
 #' @param ordering_cost  numeric,Default is FALSE ordering cost for every time an order is made.
-#' @param distribution  distribution  to calculate safety stock based on demand distribution, current choices are 'normal' or 'poisson'
+#' @param distribution  distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+#'  'poisson','gamma' and negative binomial 'nbinom'
 #' @param error_metric  metric is currently 'rmse' and 'mae', this calculates the error from period 1 to period t unless metric_windows is set.
 #' this contributes to the calculation of saftey stock. default is 'rmse'
 #' @param metric_windows  integer, for exammple if it is set to 4 rmse for t is calculated from t-1 to t-4,default is FALSE
+#' @param smoothing_error number between 0 and 1 to smooth the error as alpha x error[t] + (1-alpha) x error t-1, if metric_windows is used, smoothing 
+#' error has to be FALSE
 #' @param plot  Logical, Default is False, if true a plot is generated
+#' @param Backlogs  Logical, Default is False, if true inventory level accounts for previous lost orders
 #' @importFrom stats dnorm
 #' @importFrom stats lm
 #' @importFrom stats median
@@ -32,6 +36,7 @@
 #' @importFrom stats optimize
 #' @importFrom stats pnorm
 #' @importFrom stats ppois
+#' @importFrom stats qgamma
 #' @importFrom stats predict
 #' @importFrom stats qnorm
 #' @import ggplot2
@@ -49,7 +54,7 @@
 #' @examples
 #'sim_min_max_dynamic(demand = rpois(90,6),forecast = rpois(90,6),
 #'leadtime = 6,service_level = 0.95,one_step_forecast  = FALSE,Max = 80,
-#'distribution = 'normal',error_metric = 'mae')
+#'distribution = 'normal',error_metric = 'mae',Backlogs=TRUE)
 
 
 
@@ -57,7 +62,8 @@
 
 sim_min_max_dynamic<-function (demand,forecast, leadtime, service_level,initial_inventory_level=FALSE, Max_to_min=1.5,Max=FALSE,
                                one_step_forecast=TRUE,shortage_cost = FALSE, 
-                inventory_cost = FALSE, ordering_cost = FALSE,distribution= 'normal', error_metric= 'rmse',metric_windows= FALSE,plot=FALSE) {
+                inventory_cost = FALSE, ordering_cost = FALSE,distribution= 'normal',
+                error_metric= 'mse',smoothing_error=0.2,metric_windows= FALSE,plot=FALSE,Backlogs=FALSE) {
   inventory_level<-NULL
   period<-NULL
   L=leadtime
@@ -87,30 +93,63 @@ sim_min_max_dynamic<-function (demand,forecast, leadtime, service_level,initial_
   order[1] = 0
   
   if(error_metric == 'rmse'){
-  if (metric_windows== FALSE){
+  if (metric_windows== FALSE & smoothing_error== FALSE){
   for (i in 2: length(demand)){
      metric[i]<- sqrt(mean((demand[1:i-1]- forecast[1:i-1])^2,na.rm = TRUE))
   }
-  } else {
+  } else if (metric_windows != FALSE & smoothing_error== FALSE) {
     for (i in 2: length(demand)){
       metric[i]<- sqrt(mean((demand[max((i- metric_windows),0):(i-1)]- forecast[max((i- metric_windows),0):(i-1)])^2,na.rm = TRUE))
     
-  }
+    }
+    
+  }else {
+    for (i in 2: length(demand)){
+      metric[i]<- sqrt(mean((demand[i]- forecast[i])^2,na.rm = TRUE))* smoothing_error+ (1- smoothing_error)* sqrt(mean((demand[i-1]- forecast[i-1])^2,na.rm = TRUE))
+      
+    }
+    
   }
   }
   
   if(error_metric == 'mae'){
-    if (metric_windows== FALSE){
+    if (metric_windows== FALSE & smoothing_error== FALSE){
       for (i in 2: length(demand)){
         metric[i]<- mean(abs(demand[1:i-1]- forecast[1:i-1]),na.rm = TRUE)
       }
-    } else {
+    } else if (metric_windows != FALSE & smoothing_error== FALSE) {
       for (i in 2: length(demand)){
         metric[i]<- mean(abs(demand[max((i- metric_windows),0):(i-1)]- forecast[max((i- metric_windows),0):(i-1)]),na.rm = TRUE)
         
+      } 
+    }else {
+      for (i in 2: length(demand)){
+        metric[i]<- mean(abs(demand[i]- forecast[i]),na.rm = TRUE)* smoothing_error+ (1- smoothing_error)* mean(abs(demand[i-1]- forecast[i-1]),na.rm = TRUE)
+        
       }
+      
     }
   }
+  
+  if(error_metric == 'mse'){
+    if (metric_windows== FALSE & smoothing_error== FALSE){
+      for (i in 2: length(demand)){
+        metric[i]<- mean((demand[1:i-1]- forecast[1:i-1])^2,na.rm = TRUE)
+      }
+    } else if (metric_windows != FALSE & smoothing_error== FALSE) {
+      for (i in 2: length(demand)){
+        metric[i]<- mean((demand[max((i- metric_windows),0):(i-1)]- forecast[max((i- metric_windows),0):(i-1)])^2,na.rm = TRUE)
+        
+      }
+    }else {
+      for (i in 2: length(demand)){
+        metric[i]<- mean((demand[i]- forecast[i])^2,na.rm = TRUE)* smoothing_error+ (1- smoothing_error)* mean((demand[i-1]- forecast[i-1])^2,na.rm = TRUE)
+        
+      }
+      
+    }
+  }
+  
   
   classfication <- function(demand){
     intervals <- function(x){
@@ -160,14 +199,58 @@ sim_min_max_dynamic<-function (demand,forecast, leadtime, service_level,initial_
   
   
   
-  sigmadl<- metric* sqrt(leadtime)
+  sigmadl<- if (error_metric != 'mse'){ metric* sqrt(leadtime)
+  } else {
+      sqrt(metric * leadtime)
+    
+    }
+  
+  
   if(distribution== 'normal'){
-  saftey_stock<- sigmadl *  qnorm( service_level)
+    saftey_stock<- sigmadl *  qnorm( service_level)
   } else if(distribution== 'poisson'){
-    saftey_stock<-  qpois(service_level, demand*leadtime) - (demand*leadtime)
+    saftey_stock<-  qpois(service_level, dl) - (dl)
     
     
+  }else if (distribution== 'gamma'){
+    alpha= dl ^2 / sigmadl^2
+    beta <- dl / sigmadl^2
+    
+    saftey_stock<- qgamma(service_level,alpha,beta)-dl
+    saftey_stock[is.nan(saftey_stock)]<- 0
+  } else if (distribution== 'nbinom'){
+    ComputeNBDoverR <- function(x, mu_R, sigm_R){
+      if(sigm_R^2 <= mu_R){
+        sigm_R<- 1.05 * sqrt(mu_R)
+      }
+      z <- (sigm_R ^ 2) / mu_R
+      if (z > 1){
+        P0 <- (1 / z) ^ (mu_R / (z - 1))
+        if (x == 0){
+          PX <- P0
+        } else {
+          PX <- P0
+          for (i in 1:x){
+            PX = (((mu_R / (z - 1)) + i - 1) / i) * ((z - 1) / z) * PX
+          }
+        }
+      }
+      
+      return(PX)}
+    saftey_stock<- rep(NA,length(dl))
+    for(i in 2: length(dl)){
+      x <- 0
+      supp <- ComputeNBDoverR(x, dl[i], sigmadl[i])
+      while (supp < service_level){
+        x <- x + 1
+        supp <- supp + ComputeNBDoverR(x, dl[i], sigmadl[i])
+      }
+      
+      saftey_stock[i]<- max(x- dl[i],0)
+    }
   }
+  
+  
   min= round(dl+saftey_stock,0)
   
   if(Max ==FALSE){
@@ -186,24 +269,64 @@ sim_min_max_dynamic<-function (demand,forecast, leadtime, service_level,initial_
   IP[1] = I[1] =  initial_inventory_level
     
   }
-  
-  for (t in 2:(L)) {
-    sales[t] <- min(demand[t], I[t - 1])
-    I[t] <- I[t - 1] - sales[t]
-    order[t] <- max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
-    IP[t] <- IP[t - 1] + order[t] - sales[t]
+  if(Backlogs != TRUE){
+    for (t in 2:(L)) {
+      sales[t] <- min(demand[t], I[t - 1])
+      I[t] <- I[t - 1] - sales[t]
+      order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
+      IP[t] <- IP[t - 1] + order[t] - sales[t]
+    }
+    for (t in seq((L + 1), (N))) {
+      sales[t] = min(demand[t], I[t - 1] + order[t - L])
+      I[t] = I[t - 1] + order[t - L] - sales[t]
+      order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
+      IP[t] = IP[t - 1] + order[t] - sales[t]
+      recieved[t] <- order[t - L]
+    }
+  }else {
+    backlogs = rep(NA, N + 1)
+    comu_backlogs = rep(NA, N + 1)
+    expected=rep(NA, N + 1)
+    order[1] = 0
+    sales[1] <- 0
+    expected[1]<- 0
+    backlogs[1]<- 0
+    comu_backlogs[1]<-0
+    for (t in 2:(L)) {
+      sales[t] <- min(demand[t], I[t - 1])
+      I[t] <- ifelse(I[t-1]-demand[t]- comu_backlogs[t-1]>0,I[t-1]-
+                       demand[t]-comu_backlogs[t-1],0)
+      order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
+      expected[t]<- expected[t-1]+ order[t-1]
+      backlogs[t]<- ifelse(I[t-1]< demand[t],abs(I[t-1]-demand[t]),0)
+      comu_backlogs[t]<- ifelse(backlogs[t]>I[t-1] | backlogs[t]>0,comu_backlogs[t-1]+backlogs[t],0)
+      IP[t] <- IP[t - 1] + order[t] - sales[t]
+    }
+    for (t in seq((L + 1), (N))) {
+      sales[t] <- min(demand[t], I[t - 1])
+      recieved[t] <- order[t - L]
+      
+      I[t] <- ifelse(I[t-1]-demand[t]+recieved[t]- comu_backlogs[t-1]>0,I[t-1]-
+                       demand[t]+recieved[t]-comu_backlogs[t-1],0)
+      order[t] = max((Max[t] - IP[t - 1]) *  (IP[t - 1] <= min[t]),0)
+      expected[t]<- expected[t-1]+ order[t-1]- recieved[t]
+      backlogs[t]<-  ifelse(I[t-1]< demand[t],abs(I[t-1]-demand[t]),0)
+      comu_backlogs[t]<- ifelse(backlogs[t]>I[t-1] | backlogs[t]>0,comu_backlogs[t-1]+backlogs[t],0)
+      IP[t] <- I[t]+ expected[t]- comu_backlogs[t]
+    }
   }
-  for (t in seq((L + 1), (N))) {
-    sales[t] = min(demand[t], I[t - 1] + order[t - L])
-    I[t] = I[t - 1] + order[t - L] - sales[t]
-    order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
-    IP[t] = IP[t - 1] + order[t] - sales[t]
-    recieved[t] <- order[t - L]
-  }
+  if(Backlogs != TRUE){
   data <- data.frame('period' = seq(1:(N + 1)), demand = demand, forecast=forecast,rolling_error= metric,
                      sales = sales, 'inventory_level' = I, inventory_position = IP,expected_demand_leadtime= dl,sigmadl= sigmadl,saftey_stock=saftey_stock,
                      min = min, Max = Max, order = order, recieved = recieved)
   data$lost_order <- data$demand - data$sales
+  }else {
+    data <- data.frame('period' = seq(1:(N + 1)), demand = demand, forecast=forecast,rolling_error= metric,
+                       sales = sales, 'inventory_level' = I, inventory_position = IP,expected_demand_leadtime= dl,sigmadl= sigmadl,saftey_stock=saftey_stock,
+                       min = min, Max = Max, order = order, recieved = recieved,comu_backlogs)
+    data$lost_order <- data$demand - data$sales 
+    
+  }
   metrics <- data.frame(shortage_cost = sum(data$lost_order, 
                                             na.rm = TRUE) * shortage_cost, inventory_cost = sum(data$inventory_level, na.rm = TRUE) * 
 inventory_cost, average_inventory_level = mean(data$inventory_level, na.rm = TRUE),total_orders= length(which(data$order > 0)),ordering_cost = length(which(data$order > 0)) * ordering_cost,
@@ -225,5 +348,16 @@ me= mean(demand-forecast),mape= mean((abs(demand-forecast)/abs(demand))*100,na.r
   
   return(list(simu_data = data, metrics = metrics))
 }
+
+
+
+sim_min_max_dynamic(demand = rpois(90,6),forecast = rpois(90,6),
+leadtime = 6,service_level = 0.95,one_step_forecast  = FALSE,Max = 80,
+distribution = 'gamma',error_metric = 'mse',smoothing_error = 0.2,Backlogs=TRUE)
+
+
+
+
+
 
 

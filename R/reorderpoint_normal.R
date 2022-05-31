@@ -7,11 +7,10 @@
 #'
 #' @param dailydemand numeric,daily Expected  demand of the SKU .
 #' @param dailystandarddeviation numeric,  standard  deviation of daily demand of the SKU .
-#'
 #' @param  leadtimein_days  leadtime in days of order..
 #' @param  csl  cycle service level requested
-#' @param na.rm Logical, remove na if TRUE
-#'
+#' @param distribution  distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+#'  'poisson','gamma' and negative binomial 'nbinom'.
 #' @return a dataframe that contains demand lead time,sigmadl,safteyfactor and re_order point.
 #' @importFrom stats dnorm
 #' @importFrom stats lm
@@ -33,19 +32,65 @@
 
 
 reorderpoint<-
-  function(dailydemand,dailystandarddeviation,leadtimein_days,csl,na.rm=TRUE){
+  function(dailydemand,dailystandarddeviation,leadtimein_days,csl,distribution='normal'){
 
-    DL<- dailydemand*leadtimein_days
+    dl<- dailydemand*leadtimein_days
     sigmadl<-dailystandarddeviation*sqrt(leadtimein_days)
-    safteyfactor<- qnorm(csl)
-    safteystock<-safteyfactor*sigmadl
-    quantityinstock<- DL+safteystock
-    allpar<- data.frame("demandleadtime"= DL,"sigmadl"=sigmadl,"safteyfactor"=safteyfactor,"reorder_point"=quantityinstock)
+    
+    
+    service_level<- csl
+    
+    if(distribution== 'normal'){
+      safteystock<- sigmadl *  qnorm( service_level)
+    } else if(distribution== 'poisson'){
+      safteystock<-  qpois(service_level, dl) - (dl)
+      
+      
+    }else if (distribution== 'gamma'){
+      alpha= dl ^2 / sigmadl^2
+      beta <- dl / sigmadl^2
+      
+      safteystock<- qgamma(service_level,alpha,beta)-dl
+    } else if (distribution== 'nbinom'){
+      ComputeNBDoverR <- function(x, mu_R, sigm_R){
+        if(sigm_R^2 <= mu_R){
+          sigm_R<- 1.05 * sqrt(mu_R)
+        }
+        z <- (sigm_R ^ 2) / mu_R
+        if (z > 1){
+          P0 <- (1 / z) ^ (mu_R / (z - 1))
+          if (x == 0){
+            PX <- P0
+          } else {
+            PX <- P0
+            for (i in 1:x){
+              PX = (((mu_R / (z - 1)) + i - 1) / i) * ((z - 1) / z) * PX
+            }
+          }
+        }
+        
+        return(PX)}
+     
+        x <- 0
+        supp <- ComputeNBDoverR(x, dl, sigmadl)
+        while (supp < service_level){
+          x <- x + 1
+          supp <- supp + ComputeNBDoverR(x, dl, sigmadl)
+        }
+        
+        safteystock<- x- dl
+      }
+    
+    
+    
+    quantityinstock<- dl+safteystock
+    allpar<- data.frame("demandleadtime"= dl,saftey_stock=safteystock
+                        ,"sigmadl"=sigmadl,"reorder_point"=quantityinstock)
     return(allpar)
   }
 
 
-
+reorderpoint(50,4,5,0.9,distribution = 'nbinom')
 
 
 

@@ -19,10 +19,12 @@
 #' @param shortage_cost  numeric,Default is FALSE shortage cost per unit of sales lost
 #' @param inventory_cost  numeric,Default is FALSE inventory cost per unit.
 #' @param ordering_cost  numeric,Default is FALSE ordering cost for every time an order is made.
-#' @param distribution  distribution  to calculate safety stock based on demand distribution, current choices are 'normal' or 'poisson'
-#' @param recalculate  integer, the mean and sd is recalculated every X periods from first period to x,default is FALSE .
-#' @param recalculate_windows  integer, the min  mean and sd windows to recalculate , for exammple if it is set to 4 mean and sd
-#' is calculated from t to t-4,,default is FALSE .
+#' @param distribution  distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+#'  'poisson','gamma' and negative binomial 'nbinom'
+#' @param recalculate  Logical, if true the mean and sd is recalculated every  period from first period to t,default is FALSE .
+#' @param recalculate_windows  integer, the min  mean and sd windows to recalculate , for example if it is set to 4 mean and sd
+#' is calculated from t to t-4,,default is FALSE, if TRUE, recalculate has to be TRUE Also.
+#' @param Backlogs  Logical, Default is False, if true inventory level accounts for previous lost orders
 #' @param plot  Logical, Default is False, if true a plot is generated
 #' @importFrom stats dnorm
 #' @importFrom stats lm
@@ -31,6 +33,7 @@
 #' @importFrom stats optimize
 #' @importFrom stats pnorm
 #' @importFrom stats ppois
+#' @importFrom stats qgamma
 #' @importFrom stats predict
 #' @importFrom stats qnorm
 #' @import ggplot2
@@ -40,62 +43,184 @@
 #' @author "haytham omar  email: <haytham@rescaleanalytics.com>"
 #' @export
 #' @examples
-#' sim_min_max(demand = rpois(80,6),leadtime = 4,service_level = 0.95,recalculate = 8)
+#' sim_min_max(demand = rpois(80,6),leadtime = 4,service_level = 0.95,recalculate = TRUE)
 
 sim_min_max<- function (demand, mean = FALSE, sd=FALSE, leadtime, service_level, initial_inventory_level = FALSE, min= FALSE,Max=FALSE,Max_to_min=1.3,
                        shortage_cost = FALSE, inventory_cost = FALSE, 
-                       ordering_cost = FALSE,distribution= 'normal',recalculate=FALSE,recalculate_windows=FALSE,plot=FALSE) 
+                       ordering_cost = FALSE,distribution= 'normal',
+                       recalculate=FALSE,recalculate_windows=FALSE,plot=FALSE,Backlogs=FALSE) 
   
 {
   inventory_level<-NULL
   period<-NULL
   L = leadtime
-
-  if(recalculate != FALSE){
-    
-    mean = c(rep(NA,length(demand)+1))
-    sd= c(rep(NA,length(demand)+1))
-    minn= c(rep(NA,length(demand)+1))
-    min= c(rep(NA,length(demand)+1))
-    for (i in 1: length(mean)){
-      mean[i]= mean(demand[1:i],na.rm=TRUE)
-      sd[i]= sd(demand[1:i],na.rm=TRUE)
-      if(distribution== 'normal'){
-        
-        minn[i] = round((mean[i] * (leadtime)) + ((sd[i] * sqrt(leadtime)) * 
-                                                    qnorm(service_level)), digits = 0)
+  inventory_level<-NULL
+  period<-NULL
+  
+  ComputeNBDoverR <- function(x, mu_R, sigm_R){
+    if(sigm_R^2 <= mu_R){
+      sigm_R<- 1.05 * sqrt(mu_R)
+    }
+    z <- (sigm_R ^ 2) / mu_R
+    if (z > 1){
+      P0 <- (1 / z) ^ (mu_R / (z - 1))
+      if (x == 0){
+        PX <- P0
       } else {
-        
-        minn[i] = qpois(service_level,mean[i]*(leadtime))
+        PX <- P0
+        for (i in 1:x){
+          PX = (((mu_R / (z - 1)) + i - 1) / i) * ((z - 1) / z) * PX
+        }
       }
-      
     }
     
-    if(recalculate_windows != FALSE){
+    return(PX)}
+  
+    if(recalculate_windows==FALSE & recalculate !=FALSE){
+      mean = c(rep(NA,length(demand)+1))
+      sd= c(rep(NA,length(demand)+1))
+      max= c(rep(NA,length(demand)+1))
+      min= c(rep(NA,length(demand)+1))
       mean[1]<- demand[1]
       sd[1]<- sd(demand)
-      for (i in 1: length(mean)){
-        mean[i]= mean(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)
-        sd[i]= ifelse(is.na(sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)),sd[i-1],
-        sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE))
+      for (i in 2: length(mean)){
+        mean[i]= mean(demand[1:i],na.rm=TRUE)
+        sd[i]= sd(demand[1:i],na.rm=TRUE)
         if(distribution== 'normal'){
           
-          minn[i] = round((mean[i] * (leadtime)) + ((sd[i] * sqrt(leadtime)) * 
-                                                      qnorm(service_level)), digits = 0)
-        } else {
+          max[i] = round((mean[i] * (leadtime)) + ((sd[i] * sqrt(leadtime)) * 
+                                                     qnorm(service_level)), digits = 0)
+        } else if (distribution== 'poisson') {
           
-          minn[i] = qpois(service_level,mean[i]*(leadtime))
+          max[i] = qpois(service_level,mean[i]*(leadtime))
+        } else if( distribution== 'gamma'){
+          dl= mean[i]*(leadtime)
+          sigmadl= sd[i] * sqrt(leadtime)
+          alpha= dl ^2 / sigmadl^2
+          beta <- dl / sigmadl^2
+          max[i]<- round(qgamma(service_level,alpha,beta))
+        } else if (distribution== 'nbinom'){
+          dl= mean[i]*(leadtime)
+          sigmadl= sd[i] * sqrt(leadtime)
+          
+          x <- 0
+          supp <- ComputeNBDoverR(x, dl, sigmadl)
+          while (supp < service_level){
+            x <- x + 1
+            supp <- supp + ComputeNBDoverR(x, dl, sigmadl)
+          }
+          max[i]<- x
         }
         
       }
+      min <- max
+      min[1]= max[2]
       
-    }
-    
-    min[1]= minn[2]
-    for (i in 2: length(min)){
-      min[i]<- ifelse(i %% recalculate !=0,min[i-1],minn[i])
-    }
+    } else if ( recalculate_windows !=FALSE & recalculate != FALSE) {
+      
+      mean = c(rep(NA,length(demand)+1))
+      sd= c(rep(NA,length(demand)+1))
+      max= c(rep(NA,length(demand)+1))
+      min= c(rep(NA,length(demand)+1))
+      mean[1]<- demand[1]
+      sd[1]<- sd(demand)
+      for (i in 2: length(mean)){
+        mean[i]= mean(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)
+        sd[i]= ifelse(is.na(sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE)),sd[i-1],sd(demand[max((i- recalculate_windows),1):(i-1)],na.rm=TRUE))
+        if(distribution== 'normal'){
+          
+          max[i] = round((mean[i] * (leadtime)) + ((sd[i] * sqrt(leadtime)) * 
+                                                     qnorm(service_level)), digits = 0)
+        } else if (distribution== 'poisson') {
+          
+          max[i] = qpois(service_level,mean[i]*(leadtime))
+        } else if( distribution== 'gamma'){
+          dl= mean[i]*(leadtime)
+          sigmadl= sd[i] * sqrt(leadtime)
+          alpha= dl ^2 / sigmadl^2
+          beta <- dl / sigmadl^2
+          max[i]<- round(qgamma(service_level,alpha,beta))
+        } else if (distribution== 'nbinom'){
+          dl= mean[i]*(leadtime)
+          sigmadl= sd[i] * sqrt(leadtime)
+          
+          
+          x <- 0
+          supp <- ComputeNBDoverR(x, dl, sigmadl)
+          while (supp < service_level){
+            x <- x + 1
+            supp <- supp + ComputeNBDoverR(x, dl, sigmadl)
+          }
+          max[i]<- x
+        }
+      }
+      
+      
+      
+      min[1]= max[2]
+      for (i in 2: length(max)){
+        min[i]<- ifelse(i %% recalculate_windows !=0,min[i-1],max[i])
+      }
+    } 
+  
+  
+  N= length(demand)
+  
+  
+  if(mean[1]== FALSE & recalculate==FALSE){
+    mean= mean(demand)
+  } else if (mean[1]!= FALSE & recalculate==FALSE) {
+    mean=mean
   }
+  
+  if(sd[1]== FALSE & recalculate==FALSE){
+    sd= sd(demand)
+  } else if (sd[1]!= FALSE & recalculate==FALSE) {
+    sd =sd
+  }
+  
+  if (min[1] != FALSE& recalculate==FALSE){
+    
+    min= min
+    min = rep(min, N + 1)
+    
+  } else if(distribution== 'normal'& recalculate==FALSE){
+    
+    min = round((mean * (leadtime)) + ((sd * sqrt(leadtime)) * 
+                                         qnorm(service_level)), digits = 0)
+    min = rep(min, N + 1)
+    
+  } else if (distribution== 'poisson' & recalculate==FALSE){
+    
+    min = qpois(service_level,mean*(leadtime))
+    min = rep(min, N + 1)
+    
+  } else if (distribution== 'gamma' & recalculate==FALSE){
+    dl= mean*(leadtime)
+    sigmadl= sd * sqrt(leadtime)
+    alpha= dl ^2 / sigmadl^2
+    beta <- dl / sigmadl^2
+    min <- round(qgamma(service_level,alpha,beta))
+    min = rep(min, N + 1)
+    
+  } else if (distribution== 'nbinom' & recalculate==FALSE){
+    dl= mean*(leadtime)
+    sigmadl= sd * sqrt(leadtime)
+    
+    x <- 0
+    supp <- ComputeNBDoverR(x, dl, sigmadl)
+    while (supp < service_level){
+      x <- x + 1
+      supp <- supp + ComputeNBDoverR(x, dl, sigmadl)
+    }
+    min<- round(x)
+    min = rep(min, N + 1)
+    
+  }
+  
+  saftey_stock= min- (mean*(leadtime))
+  
+  
   
   classfication <- function(demand){
     intervals <- function(x){
@@ -143,47 +268,7 @@ sim_min_max<- function (demand, mean = FALSE, sd=FALSE, leadtime, service_level,
   
   demand_class= classfication(demand)
   
-  
-  
-  N= length(demand)
-  
-  if(mean[1]== FALSE & recalculate==FALSE){
-    mean= mean(demand)
-  } else if (mean[1]!= FALSE & recalculate==FALSE) {
-    mean=mean
-  }
-  
-  if(sd[1]== FALSE & recalculate==FALSE){
-    sd= sd(demand)
-  } else if (sd[1]!= FALSE & recalculate==FALSE) {
-    sd =sd
-  }
-  
-  if (min[1] != FALSE& recalculate==FALSE){
-    
-    min= min
-    min = rep(min, N + 1)
-    
-  } else if(distribution== 'normal'& recalculate==FALSE){
-    
-    min = round((mean * leadtime) + ((sd * sqrt(leadtime)) * 
-                                       qnorm(service_level)), digits = 0)
-    min = rep(min, N + 1)
-    
-  } else if (distribution== 'poisson' & recalculate==FALSE){
-    
-    min = qpois(service_level,mean*leadtime)
-    min = rep(min, N + 1)
-    
-  }
-  
-  if(Max==FALSE){
-    Max= round(Max_to_min *min,0)
-  } else {
-    Max= rep(Max,N+1)
-  }
-  
-  N = length(demand)
+  L= leadtime
   order = rep(NA, N + 1)
   I = rep(NA, N + 1)
   IP = rep(NA, N + 1)
@@ -193,31 +278,76 @@ sim_min_max<- function (demand, mean = FALSE, sd=FALSE, leadtime, service_level,
   demand <- c(0, demand)
   
   if(initial_inventory_level==FALSE){
-    IP[1] = I[1] =  Max[1]
+    IP[1] = I[1] =  min[1]
   } else {
     IP[1] = I[1] =  initial_inventory_level
     
   }
-  saftey_stock= min- (mean*leadtime)
   
+  if(Max==FALSE){
+    Max= round(Max_to_min *min,0)
+  } else {
+    Max= rep(Max,N+1)
+  }
   
-  for (t in 2:(L)) {
-    sales[t] <- min(demand[t], I[t - 1])
-    I[t] <- I[t - 1] - sales[t]
-    order[t] <- (Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t])
-    IP[t] <- IP[t - 1] + order[t] - sales[t]
+  if(Backlogs != TRUE){
+    for (t in 2:(L)) {
+      sales[t] <- min(demand[t], I[t - 1])
+      I[t] <- I[t - 1] - sales[t]
+      order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
+      IP[t] <- IP[t - 1] + order[t] - sales[t]
+    }
+    for (t in seq((L + 1), (N))) {
+      sales[t] = min(demand[t], I[t - 1] + order[t - L])
+      I[t] = I[t - 1] + order[t - L] - sales[t]
+      order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
+      IP[t] = IP[t - 1] + order[t] - sales[t]
+      recieved[t] <- order[t - L]
+    }
+  }else {
+    backlogs = rep(NA, N + 1)
+    comu_backlogs = rep(NA, N + 1)
+    expected=rep(NA, N + 1)
+    order[1] = 0
+    sales[1] <- 0
+    expected[1]<- 0
+    backlogs[1]<- 0
+    comu_backlogs[1]<-0
+    for (t in 2:(L)) {
+      sales[t] <- min(demand[t], I[t - 1])
+      I[t] <- ifelse(I[t-1]-demand[t]- comu_backlogs[t-1]>0,I[t-1]-
+                       demand[t]-comu_backlogs[t-1],0)
+      order[t] = max((Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t]),0)
+      expected[t]<- expected[t-1]+ order[t-1]
+      backlogs[t]<- ifelse(I[t-1]< demand[t],abs(I[t-1]-demand[t]),0)
+      comu_backlogs[t]<- ifelse(backlogs[t]>I[t-1] | backlogs[t]>0,comu_backlogs[t-1]+backlogs[t],0)
+      IP[t] <- IP[t - 1] + order[t] - sales[t]
+    }
+    for (t in seq((L + 1), (N))) {
+      sales[t] <- min(demand[t], I[t - 1])
+      recieved[t] <- order[t - L]
+      
+      I[t] <- ifelse(I[t-1]-demand[t]+recieved[t]- comu_backlogs[t-1]>0,I[t-1]-
+                       demand[t]+recieved[t]-comu_backlogs[t-1],0)
+      order[t] = max((Max[t] - IP[t - 1]) *  (IP[t - 1] <= min[t]),0)
+      expected[t]<- expected[t-1]+ order[t-1]- recieved[t]
+      backlogs[t]<-  ifelse(I[t-1]< demand[t],abs(I[t-1]-demand[t]),0)
+      comu_backlogs[t]<- ifelse(backlogs[t]>I[t-1] | backlogs[t]>0,comu_backlogs[t-1]+backlogs[t],0)
+      IP[t] <- I[t]+ expected[t]- comu_backlogs[t]
+    }
   }
-  for (t in seq((L + 1), (N))) {
-    sales[t] = min(demand[t], I[t - 1] + order[t - L])
-    I[t] = I[t - 1] + order[t - L] - sales[t]
-    order[t] = (Max[t] - IP[t - 1]) * (IP[t - 1] <= min[t])
-    IP[t] = IP[t - 1] + order[t] - sales[t]
-    recieved[t] <- order[t - L]
-  }
+  if( Backlogs != TRUE){
   data <- data.frame('period' = seq(1:(N + 1)), demand = demand,
                      sales = sales, 'inventory_level' = I, inventory_position = IP,saftey_stock=saftey_stock,
                      min = min, Max = Max, order = order, recieved = recieved)
   data$lost_order <- data$demand - data$sales
+  } else {
+    data <- data.frame('period' = seq(1:(N + 1)), demand = demand,
+                       sales = sales, 'inventory_level' = I, inventory_position = IP,saftey_stock=saftey_stock,
+                       min = min, Max = Max, order = order, recieved = recieved,comu_backlogs)
+    data$lost_order <- data$demand - data$sales
+    
+  }
   metrics <- data.frame(shortage_cost = sum(data$lost_order, 
                                             na.rm = TRUE) * shortage_cost, inventory_cost = sum(data$inventory_level, na.rm = TRUE) * 
                           inventory_cost, average_inventory_level = mean(data$inventory_level, na.rm = TRUE),total_orders= length(which(data$order > 0)),ordering_cost = length(which(data$order > 0)) * ordering_cost,
@@ -240,6 +370,6 @@ sim_min_max<- function (demand, mean = FALSE, sd=FALSE, leadtime, service_level,
                                                    
 }
 
-
+sim_min_max(demand = rpois(80,6),leadtime = 4,service_level = 0.95,recalculate=TRUE,Backlogs = TRUE)
 
 

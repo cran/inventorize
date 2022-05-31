@@ -19,7 +19,8 @@ periodic_policy(
   distribution = "normal",
   recalculate = FALSE,
   recalculate_windows = FALSE,
-  plot = FALSE
+  plot = FALSE,
+  Backlogs = TRUE
 )
 }
 \arguments{
@@ -45,14 +46,17 @@ periodic_policy(
 
 \item{ordering_cost}{numeric,Default is FALSE ordering cost for every time an order is made.}
 
-\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal' or 'poisson'}
+\item{distribution}{distribution  to calculate safety stock based on demand distribution, current choices are 'normal'
+'poisson','gamma' and negative binomial 'nbinom'}
 
-\item{recalculate}{integer, the mean and sd is recalculated every X periods from first period to x,default is FALSE .}
+\item{recalculate}{Logical, if true the mean and sd is recalculated every  period from first period to t,default is FALSE .}
 
-\item{recalculate_windows}{integer, the min  mean and sd windows to recalculate , for exammple if it is set to 4 mean and sd
-is calculated from t to t-4,,default is FALSE .}
+\item{recalculate_windows}{integer, the min  mean and sd windows to recalculate , for example if it is set to 4 mean and sd
+is calculated from t to t-4,,default is FALSE, if TRUE, recalculate has to be TRUE Also.}
 
 \item{plot}{Logical, Default is False, if true a plot is generated}
+
+\item{Backlogs}{Logical, Default is False, if true inventory level accounts for previous lost orders}
 }
 \value{
 a list of two date frames, the simulation and the metrics.
@@ -69,7 +73,7 @@ orders are lost if inventory level is less than requested demand, also ordering 
 }
 \examples{
 periodic_policy(demand = rpois(90,9),service_level = 0.9,
-leadtime = 10,Review_period = 10,recalculate = 9)
+leadtime = 10,Review_period = 10,recalculate = TRUE,Backlogs=TRUE)
 }
 \author{
 "haytham omar  email: <haytham@rescaleanalytics.com>"
